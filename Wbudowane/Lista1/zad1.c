@@ -6,8 +6,8 @@
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
 
-#define TIME_DOT 												300
-#define TIME_SPACE											1000
+#define TIME_DOT 						300
+#define TIME_SPACE						1000
 #define SPACE_BETWEEN_ELEMENTS_OF_CHAR 	TIME_DOT
 #define SPACE_BETWEEN_CHARS            	3*TIME_DOT
 #define SPACE_BETWEEN_STRING           	7*TIME_DOT
@@ -17,14 +17,14 @@
 #define LED_PORT PORTB
 
 char* MORSE_CODE_DICT [26] = { ".-", "-...",
-												 "-.-.", "-..", ".",
-												 "..-.", "--.", "....",
-												 "..", ".---", "-.-",
-												 ".-..", "--", "-.",
-												 "---", ".--.", "--.-",
-												 ".-.", "...", "-",
-												 "..-", "...-", ".--",
-												 "-..-", "-.--", "--.."};
+								"-.-.", "-..", ".",
+								"..-.", "--.", "....",
+								"..", ".---", "-.-",
+								".-..", "--", "-.",
+								"---", ".--.", "--.-",
+								".-.", "...", "-",
+								"..-", "...-", ".--",
+								"-..-", "-.--", "--.."};
 
 
 // inicjalizacja UART
