@@ -6,11 +6,11 @@
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
 
-#define TIME_DOT 						300
-#define TIME_SPACE						1000
-#define SPACE_BETWEEN_ELEMENTS_OF_CHAR 	TIME_DOT
-#define SPACE_BETWEEN_CHARS            	3*TIME_DOT
-#define SPACE_BETWEEN_STRING           	7*TIME_DOT
+#define TIME_BETWEEN_DOTS 				300
+#define TIME_BETWEEN_SPACE				1000
+#define TIME_BETWEEN_MORSE_ELEMENTS 	TIME_BETWEEN_DOTS
+#define SPACE_BETWEEN_CHARS            	3*TIME_BETWEEN_DOTS
+#define SPACE_BETWEEN_STRING           	7*TIME_BETWEEN_DOTS
 
 #define LED PB5
 #define LED_DDR DDRB
@@ -84,15 +84,15 @@ int main()
 				printf("Odczytano: %c\r\n", cur_char);
 				if(cur_char == '-'){
 					LED_PORT |= _BV(LED);
-					_delay_ms(TIME_SPACE);
+					_delay_ms(TIME_BETWEEN_SPACE);
 					LED_PORT &= ~_BV(LED);
-					_delay_ms(SPACE_BETWEEN_ELEMENTS_OF_CHAR);
+					_delay_ms(TIME_BETWEEN_MORSE_ELEMENTS);
 				}
 				else{
 					LED_PORT |= _BV(LED);
-					_delay_ms(TIME_DOT);
+					_delay_ms(TIME_BETWEEN_DOTS);
 					LED_PORT &= ~_BV(LED);
-					_delay_ms(SPACE_BETWEEN_ELEMENTS_OF_CHAR);
+					_delay_ms(TIME_BETWEEN_MORSE_ELEMENTS);
 				}
 				counter++;
 				cur_char = MORSE_CODE_DICT[char_in_tab][counter];
