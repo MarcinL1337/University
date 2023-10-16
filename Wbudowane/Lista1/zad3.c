@@ -11,7 +11,7 @@
 #define middle PD6
 #define dot PD7
 
-#define reset() (PORTD = 0b11111111)
+#define reset() (PORTD = 0b01111111)
 #define light_led(which) (PORTD &= ~_BV(which))
 
 /*

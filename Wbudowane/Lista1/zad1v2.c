@@ -62,6 +62,7 @@ int main()
   // skonfiguruj strumienie wejścia/wyjścia
   fdev_setup_stream(&uart_file, uart_transmit, uart_receive, _FDEV_SETUP_RW);
   stdin = stdout = stderr = &uart_file;
+  LED_DDR |= _BV(LED);
 
   char in[128];
   while (1)

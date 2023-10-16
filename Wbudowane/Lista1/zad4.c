@@ -88,7 +88,7 @@ int main()
     }
 
     {
-        int64_t a, b;
+        int64_t a = 0, b = 0;
         scanf("%"SCNd32 "%"SCNd32, &a, &b);
         printf("Odczytano: %"PRId32 " %"PRId32"\r\n", a, b);
         int64_t mul, div, add;
