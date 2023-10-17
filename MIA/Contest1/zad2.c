@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 int main(){
     int no_of_cubes;
@@ -25,7 +26,10 @@ int main(){
             temp /= 10;
         }
         for(int i = 0; i < 10; i++){
-            if(aux_tab[i] > (faces_count[0][i] + faces_count[1][i] + faces_count[2][i])){
+            if(aux_tab[i] == (faces_count[0][i] + faces_count[1][i] + faces_count[2][i])){
+
+            }
+            else if(aux_tab[i] > (faces_count[0][i] + faces_count[1][i] + faces_count[2][i])){
                 flag = false;
                 break;
             }

@@ -17,7 +17,7 @@ function fibIter(n){
     return res;
 }
 
-for(var i = 10; i <= 35; i+=1){
+for(var i = 1; i <= 35; i+=1){
     console.log("Iteration number: " + i);
     console.time("rec");
     fibRec(i);
