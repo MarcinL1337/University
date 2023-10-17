@@ -64,7 +64,7 @@ Archive member included to satisfy reference by file (symbol)
 Allocating common symbols
 Common symbol       size              file
 
-buffer              0x3e8             zad1.o
+buffer              0x2710            zad1.o
 
 Memory Configuration
 
@@ -559,7 +559,7 @@ END GROUP
                 0x0000000000800104                _edata = .
                 0x0000000000800104                PROVIDE (__data_end, .)
 
-.bss            0x0000000000800104      0x3e8
+.bss            0x0000000000800104     0x2710
                 0x0000000000800104                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x0000000000800104        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr5/crtatmega328p.o
@@ -596,17 +596,17 @@ END GROUP
  .bss           0x0000000000800104        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr5/libc.a(cty_isfalse.o)
  *(.bss*)
  *(COMMON)
- COMMON         0x0000000000800104      0x3e8 zad1.o
+ COMMON         0x0000000000800104     0x2710 zad1.o
                 0x0000000000800104                buffer
-                0x00000000008004ec                PROVIDE (__bss_end, .)
+                0x0000000000802814                PROVIDE (__bss_end, .)
                 0x0000000000001856                __data_load_start = LOADADDR (.data)
                 0x000000000000185a                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00000000008004ec        0x0
+.noinit         0x0000000000802814        0x0
                 [!provide]                        PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                        PROVIDE (__noinit_end, .)
-                0x00000000008004ec                _end = .
+                0x0000000000802814                _end = .
                 [!provide]                        PROVIDE (__heap_start, .)
 
 .eeprom         0x0000000000810000        0x0
@@ -632,9 +632,9 @@ END GROUP
  *(.stab)
  .stab          0x0000000000000000      0x588 zad1.o
 
-.stabstr        0x0000000000000000      0xcde
+.stabstr        0x0000000000000000      0xcef
  *(.stabstr)
- .stabstr       0x0000000000000000      0xcde zad1.o
+ .stabstr       0x0000000000000000      0xcef zad1.o
 
 .stab.excl
  *(.stab.excl)
