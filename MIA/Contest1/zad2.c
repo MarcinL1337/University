@@ -15,9 +15,12 @@ int main(){
         }
     }
 
+    bool used_cubes[3];
+
     long long int cur_to_check = 0, temp;
     bool flag = true;
     while(flag){
+        used_cubes[0] = used_cubes[1] = used_cubes[2] = false;
         cur_to_check++;
         temp = cur_to_check;
         int aux_tab[10] = {0};
@@ -26,12 +29,23 @@ int main(){
             temp /= 10;
         }
         for(int i = 0; i < 10; i++){
-            if(aux_tab[i] == (faces_count[0][i] + faces_count[1][i] + faces_count[2][i])){
-
+            if(aux_tab[i] == 1){
+                if(faces_count[0][i] && !used_cubes[0]) 
+                    used_cubes[0] = true;
+                else if(faces_count[1][i] && !used_cubes[1])
+                    used_cubes[1] = true;
+                else if(faces_count[2][i] && !used_cubes[2])
+                    used_cubes[2] = true;
+                else{
+                    flag = false;
+                    break;
+                }
             }
-            else if(aux_tab[i] > (faces_count[0][i] + faces_count[1][i] + faces_count[2][i])){
-                flag = false;
-                break;
+            else if(aux_tab[i] == 2){
+                if(faces_count[0][i] && faces_count[1][i] ||
+                   faces_count[1][i] && faces_count[2][i] ||
+                   faces_count[0][i] && faces_count[2][i])
+                   continue;
             }
         }
     }
