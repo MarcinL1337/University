@@ -36,8 +36,7 @@ void uart_init()
 int uart_transmit(char data, FILE *stream)
 {
     // czekaj aż transmiter gotowy
-    while (!(UCSR0A & _BV(UDRE0)))
-        ;
+    while (!(UCSR0A & _BV(UDRE0)));
     UDR0 = data;
     return 0;
 }

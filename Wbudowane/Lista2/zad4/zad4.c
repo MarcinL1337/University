@@ -35,10 +35,10 @@ int main(){
         for(int i = 0; i < 60; i++){
             for(int j = 0; j < 50; j++){
                 PORTC = 0b11111101;
-                PORTD = (digits[i%10]);
+                PORTD = digits[i%10];
                 _delay_ms(10);
                 PORTC = 0b11111110;
-                PORTD = (digits[i/10]);
+                PORTD = digits[i/10];
                 _delay_ms(10);
             }
         }
