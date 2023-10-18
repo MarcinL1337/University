@@ -15,40 +15,28 @@ int main(){
         }
     }
 
-    bool used_cubes[3];
-
-    long long int cur_to_check = 0, temp;
     bool flag = true;
+    int cur_to_check = 0;
+    int dig1 = 0, dig2 = 0;
     while(flag){
-        used_cubes[0] = used_cubes[1] = used_cubes[2] = false;
         cur_to_check++;
-        temp = cur_to_check;
-        int aux_tab[10] = {0};
-        while(temp > 0){
-            aux_tab[temp%10]++;
-            temp /= 10;
-        }
-        for(int i = 0; i < 10; i++){
-            if(aux_tab[i] == 1){
-                if(faces_count[0][i] && !used_cubes[0]) 
-                    used_cubes[0] = true;
-                else if(faces_count[1][i] && !used_cubes[1])
-                    used_cubes[1] = true;
-                else if(faces_count[2][i] && !used_cubes[2])
-                    used_cubes[2] = true;
-                else{
-                    flag = false;
-                    break;
+        int temp = cur_to_check;
+        
+        if(cur_to_check < 10)
+            flag = (faces_count[0][cur_to_check] || faces_count[1][cur_to_check] || faces_count[2][cur_to_check]);
+        else{
+            dig1 = cur_to_check % 10;
+            dig2 = cur_to_check / 10;
+            flag = false;
+            for(int i = 0; i < 3; i++){
+                if(faces_count[i][dig2]){
+                    for(int j = 0; j < 3; j++){
+                        if(faces_count[j][dig1] && j != i) flag = true;
+                    }
                 }
             }
-            else if(aux_tab[i] == 2){
-                if(faces_count[0][i] && faces_count[1][i] ||
-                   faces_count[1][i] && faces_count[2][i] ||
-                   faces_count[0][i] && faces_count[2][i])
-                   continue;
-            }
-        }
+        }    
     }
 
-    printf("%lld", cur_to_check-1);
+    printf("%d", cur_to_check-1);
 }
