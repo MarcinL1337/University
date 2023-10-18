@@ -10,7 +10,7 @@
 #define BTN_PIN PINB
 #define BTN_PORT PORTB
 
-#define buffer_size 1000
+#define buffer_size 100
 
 bool buffer[buffer_size];
 int write_idx = 100, read_idx = 1;

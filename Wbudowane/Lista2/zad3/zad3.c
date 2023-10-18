@@ -9,7 +9,7 @@
 #define BTN_PIN PINB
 #define BTN_PORT PORTB
 
-int BinaryToGray(int num){
+int static inline BinaryToGray(int num){
     return num ^ (num >> 1); 
 }
 
