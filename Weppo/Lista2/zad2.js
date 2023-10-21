@@ -35,7 +35,18 @@ console.log(new_obj2['[object Object]']);
 
 console.log("\n\nC)");
 
-let new_arr = [1, 2, 3, 4, 5];
+let new_arr = [1, 2, 3, 4, 5, new_obj2];
 
+console.log(new_arr);
 console.log(new_arr["1"]);
 console.log(new_arr[new_obj2]);
+new_arr["0"] = 6;
+console.log(new_arr);
+new_arr[new_obj2] = 7;
+console.log(new_arr);
+
+
+console.log("\n\nD)");
+
+new_arr.length = "4";
+console.log(new_arr)
