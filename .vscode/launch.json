@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/Weppo/List1/zad3.js"
+            "program": "${file}"
         }
     ]
 }
