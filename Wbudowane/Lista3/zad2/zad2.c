@@ -36,7 +36,8 @@ int uart_receive(FILE *stream)
 // inicjalizacja ADC
 void adc_init()
 {
-  ADMUX   = _BV(REFS0); // referencja AVcc, wejście ADC0
+  // ADMUX   = _BV(REFS0); // referencja AVcc, wejście ADC0
+  ADMUX = 0b01001110;
   DIDR0   = _BV(ADC0D); // wyłącz wejście cyfrowe na ADC0
   // częstotliwość zegara ADC 125 kHz (16 MHz / 128)
   ADCSRA  = _BV(ADPS0) | _BV(ADPS1) | _BV(ADPS2); // preskaler 128
