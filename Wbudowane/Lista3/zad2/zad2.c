@@ -48,6 +48,8 @@ FILE uart_file;
 
 int main()
 {
+  DDRB = 0xff;
+  PORTB = _BV(PB5);
   // zainicjalizuj UART
   uart_init();
   // skonfiguruj strumienie wejścia/wyjścia
@@ -58,9 +60,12 @@ int main()
   // mierz napięcie
   while(1) {
     ADCSRA |= _BV(ADSC); // wykonaj konwersję
+    PORTB |= _BV(PB5);
     while (!(ADCSRA & _BV(ADIF))); // czekaj na wynik
     ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
     uint16_t v = ADC; // weź zmierzoną wartość (0..1023)
-    printf("Odczytano: %"PRIu16"\r\n", v);
+    PORTB &= ~_BV(PB5);
+    float calculation = 1.1 * 1024 / v;
+    printf("Odczytano: %fV\r\n", calculation);
   }
 }

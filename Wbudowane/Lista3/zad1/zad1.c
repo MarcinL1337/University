@@ -41,43 +41,46 @@
 
 #define tabs_len 23
 
-int16_t stpes[tabs_len] = {A_l,C,E,CC,H,G,A,A,CC,A,F,E,E,D,C,C,G,C,D,D,D,E,H_l};
+int16_t steps[tabs_len] = {A_l,C,E,CC,H,G,A,/*tu delay*/A,CC,A,F,E,/*tu delay*/E,D,C,/*tu delay*/C,G,C,D,/*tu delay*/D,/*tu delay*/D,E,H_l};
 
 int16_t delays[tabs_len] = {half_note, quarter_note, quarter_note, half_note, quarter_note, quarter_note,
-                            quarter_note, quarter_note, quarter_note, quarter_note, full_note, half_note,
-                            quarter_note, quarter_note, quarter_note, quarter_note, quarter_note, quarter_note,
-                            quarter_note, quarter_note, quarter_note, quarter_note, full_note};
+                            eighth_note,/*tu delay*/ quarter_note, quarter_note, quarter_note, full_note, quarter_note,
+                            /*tu delay*/quarter_note, quarter_note, eighth_note,/*tu delay*/ quarter_note, quarter_note, quarter_note,
+                            eighth_note,/*tu delay*/ eighth_note,/*tu delay*/ quarter_note, quarter_note, full_note};
 
 int main() {
   BUZZ_DDR |= _BV(BUZZ);
   while (1) {
-    TONE(A_l, half_note);
-    TONE(C, quarter_note);
-    TONE(E, quarter_note);
-    TONE(CC, half_note);
-    TONE(H, quarter_note);
-    TONE(G, quarter_note);
-    TONE(A, eighth_note);
-    _delay_ms(eighth_note);
-    TONE(A, quarter_note);
-    TONE(CC, quarter_note);
-    TONE(A, quarter_note);
-    TONE(F, full_note);
-    TONE(E, quarter_note);
-    _delay_ms(quarter_note);
-    TONE(E, quarter_note);
-    TONE(D, quarter_note);
-    TONE(C, eighth_note);
-    _delay_ms(eighth_note);
-    TONE(C, quarter_note);
-    TONE(G, quarter_note);
-    TONE(C, quarter_note);
-    TONE(D, eighth_note);
-    _delay_ms(eighth_note);
-    TONE(D, eighth_note);
-    _delay_ms(eighth_note);
-    TONE(D, quarter_note);
-    TONE(E, quarter_note);
-    TONE(H_l, full_note);
+    for(int i = 0; i < tabs_len){
+      TONE(steps[i], delays[i]);
+    }
+    // TONE(A_l, half_note);
+    // TONE(C, quarter_note);
+    // TONE(E, quarter_note);
+    // TONE(CC, half_note);
+    // TONE(H, quarter_note);
+    // TONE(G, quarter_note);
+    // TONE(A, eighth_note);
+    // _delay_ms(eighth_note);
+    // TONE(A, quarter_note);
+    // TONE(CC, quarter_note);
+    // TONE(A, quarter_note);
+    // TONE(F, full_note);
+    // TONE(E, quarter_note);
+    // _delay_ms(quarter_note);
+    // TONE(E, quarter_note);
+    // TONE(D, quarter_note);
+    // TONE(C, eighth_note);
+    // _delay_ms(eighth_note);
+    // TONE(C, quarter_note);
+    // TONE(G, quarter_note);
+    // TONE(C, quarter_note);
+    // TONE(D, eighth_note);
+    // _delay_ms(eighth_note);
+    // TONE(D, eighth_note);
+    // _delay_ms(eighth_note);
+    // TONE(D, quarter_note);
+    // TONE(E, quarter_note);
+    // TONE(H_l, full_note);
   }
 }

@@ -637,9 +637,9 @@ END GROUP
  *(.stab)
  .stab          0x0000000000000000      0xa14 zad3.o
 
-.stabstr        0x0000000000000000      0xeed
+.stabstr        0x0000000000000000      0xefd
  *(.stabstr)
- .stabstr       0x0000000000000000      0xeed zad3.o
+ .stabstr       0x0000000000000000      0xefd zad3.o
 
 .stab.excl
  *(.stab.excl)
