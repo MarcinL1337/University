@@ -1,6 +1,7 @@
 #define __DELAY_BACKWARD_COMPATIBLE__
 #include <avr/io.h>
 #include <util/delay.h>
+#include <avr/pgmspace.h>
 
 #define BUZZ PB5
 #define BUZZ_DDR DDRB
@@ -17,9 +18,8 @@
 
 #define multiplier      1.0595
 #define base            240
-// #define base            100 / multiplier
 
-#define delay           1000
+// #define delay           1000
 
 #define full_note       1000
 #define half_note       full_note / 2
@@ -39,20 +39,27 @@
 #define H_l C * multiplier
 #define A_l H_l * multiplier * multiplier
 
-#define tabs_len 23
+#define tabs_len 28
 
-int16_t steps[tabs_len] = {A_l,C,E,CC,H,G,A,/*tu delay*/A,CC,A,F,E,/*tu delay*/E,D,C,/*tu delay*/C,G,C,D,/*tu delay*/D,/*tu delay*/D,E,H_l};
+const int16_t steps[tabs_len] PROGMEM = {A_l,C,E,CC,H,G,A,0,A,CC,A,F,E,0,E,D,C,0,C,G,C,D,0,D,0,D,E,H_l};
 
-int16_t delays[tabs_len] = {half_note, quarter_note, quarter_note, half_note, quarter_note, quarter_note,
-                            eighth_note,/*tu delay*/ quarter_note, quarter_note, quarter_note, full_note, quarter_note,
-                            /*tu delay*/quarter_note, quarter_note, eighth_note,/*tu delay*/ quarter_note, quarter_note, quarter_note,
-                            eighth_note,/*tu delay*/ eighth_note,/*tu delay*/ quarter_note, quarter_note, full_note};
+const int16_t delays[tabs_len] PROGMEM = {half_note, quarter_note, quarter_note, half_note, quarter_note, quarter_note,
+                            eighth_note, eighth_note, quarter_note, quarter_note, quarter_note, full_note, quarter_note,
+                            quarter_note, quarter_note, quarter_note, eighth_note, eighth_note, quarter_note, quarter_note, quarter_note,
+                            eighth_note, eighth_note, eighth_note, eighth_note, quarter_note, quarter_note, full_note};
 
 int main() {
   BUZZ_DDR |= _BV(BUZZ);
   while (1) {
-    for(int i = 0; i < tabs_len){
-      TONE(steps[i], delays[i]);
+    for(int i = 0; i < tabs_len; i++){
+      uint16_t step = pgm_read_word(&(steps[i]));
+      uint16_t delay = pgm_read_word(&(delays[i]));
+      if(step == 0){
+        _delay_ms(delay);
+      }
+      else{
+        TONE(step, delay);
+      }
     }
     // TONE(A_l, half_note);
     // TONE(C, quarter_note);
