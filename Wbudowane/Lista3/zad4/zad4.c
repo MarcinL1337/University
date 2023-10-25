@@ -1,6 +1,7 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include <inttypes.h>
+#include <util/delay.h>
 #include <math.h>
 
 #define BAUD 9600                          // baudrate
@@ -67,6 +68,7 @@ int main()
     // printf("ADC = %"PRIu16", R1 = %f\r\n", v, R1);
 
     float T = 1 / (1/298.0 - log(4700.0/R1)/4000.0);
-    printf("%f\r\n", T - 273.0);
+    printf("%f Celsius\r\n", T - 273.0);
+    _delay_ms(200);
   }
 }

@@ -66,8 +66,8 @@ int main()
         ADCSRA |= _BV(ADIF);                // wyczyść bit ADIF (pisząc 1!)
         uint16_t v = ADC;                   // weź zmierzoną wartość (0..1023)
         PORTB |= _BV(PB5);
-        _delay_us((v >> 4) * (v >> 4));
+        _delay_us((v >> 4) * (v >> 5));
         PORTB &= ~_BV(PB5);
-        _delay_ms(15);
+        _delay_ms(12);
     }
 }
