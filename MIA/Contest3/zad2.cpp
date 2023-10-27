@@ -6,33 +6,20 @@ using namespace std;
 int main(){
     int n, a, b, c;
     cin >> n >> a >> b >> c;
-    int arr[] = {a, b, c};
-    int low, mid, high;
-    int size = sizeof(arr)/sizeof(arr[0]);
-    sort(arr, arr+3);
-    low = arr[0]; mid = arr[1]; high = arr[2];
+    int dp[n+1];
+    for(int i = 0; i < n+1; i++)
+        dp[i] = -1;
 
-    int counter = 0;
-    while(n > 0){
-        while(n > 0){
-            n -= low;
-            counter++;
-        }
-        if(n == 0){
-            cout << counter << endl;
-        }
-        else if(n < 0){
-            counter--;
-            n += low;
-        }
-        while
-    }    
+    dp[0] = 0;
+
+    for(int i = 0; i <= n; i++){
+        if(dp[i] == -1) continue;
+
+        if(a + i <= n) dp[a + i] = max(dp[a + i], dp[i] + 1);
+        if(b + i <= n) dp[b + i] = max(dp[b + i], dp[i] + 1);
+        if(c + i <= n) dp[c + i] = max(dp[c + i], dp[i] + 1);
+    }
+
+    int res = max(dp[n], 0);
+    cout << res;
 }
-
-
-/*
-    1000, 11, 15, 20
-    1000/11 = 90 + r10
-    1000/15 = 66 + r10
-    1000/20 = 50 + r0
-*/
