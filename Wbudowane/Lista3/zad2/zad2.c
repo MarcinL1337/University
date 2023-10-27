@@ -1,5 +1,6 @@
 #include <avr/io.h>
 #include <stdio.h>
+#include <util/delay.h>
 #include <inttypes.h>
 
 #define BAUD 9600                          // baudrate
@@ -67,5 +68,6 @@ int main()
     PORTB &= ~_BV(PB5);
     float calculation = 1.1 * 1024 / v;
     printf("Odczytano: %fV\r\n", calculation);
+    _delay_ms(100);
   }
 }

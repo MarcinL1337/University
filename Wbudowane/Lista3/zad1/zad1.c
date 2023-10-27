@@ -19,7 +19,6 @@
 #define multiplier      1.0595
 #define base            240
 
-// #define delay           1000
 
 #define full_note       1000
 #define half_note       full_note / 2
@@ -43,10 +42,11 @@
 
 const int16_t steps[tabs_len] PROGMEM = {A_l,C,E,CC,H,G,A,0,A,CC,A,F,E,0,E,D,C,0,C,G,C,D,0,D,0,D,E,H_l};
 
-const int16_t delays[tabs_len] PROGMEM = {half_note, quarter_note, quarter_note, half_note, quarter_note, quarter_note,
-                            eighth_note, eighth_note, quarter_note, quarter_note, quarter_note, full_note, quarter_note,
-                            quarter_note, quarter_note, quarter_note, eighth_note, eighth_note, quarter_note, quarter_note, quarter_note,
-                            eighth_note, eighth_note, eighth_note, eighth_note, quarter_note, quarter_note, full_note};
+const int16_t delays[tabs_len] PROGMEM = {
+  half_note, quarter_note, quarter_note, half_note, quarter_note, quarter_note,
+  eighth_note, eighth_note, quarter_note, quarter_note, quarter_note, full_note, quarter_note,
+  quarter_note, quarter_note, quarter_note, eighth_note, eighth_note, quarter_note, quarter_note, quarter_note,
+  eighth_note, eighth_note, eighth_note, eighth_note, quarter_note, quarter_note, full_note};
 
 int main() {
   BUZZ_DDR |= _BV(BUZZ);
