@@ -69,12 +69,6 @@ void adc_init()
 }
 
 FILE uart_file;
-// mniejsze adc -> mniejszy wynik funkcji
-// static inline float calc_ocr1a(uint16_t adc_val){
-//   // float aux = sqrt(adc_val);
-//   // return adc_val - aux;
-//   return IRC;
-// }
 
 int main()
 {
