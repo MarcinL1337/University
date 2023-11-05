@@ -1,23 +1,18 @@
 #include <avr/io.h>
+#include <util/delay.h>
 #include <stdio.h>
 #include <inttypes.h>
-#include <util/delay.h>
-#include <math.h>
 
-#define LED PB5
-#define LED_DDR DDRB
-#define LED_PORT PORTB
-
-#define BAUD 9600                          // baudrate
-#define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
-
-#define R2 2200
+#define BAUD 9600                            // baudrate
+#define UBRR_VALUE ((F_CPU) / 16 / (BAUD)-1) // zgodnie ze wzorem
 
 // inicjalizacja UART
 void uart_init()
 {
   // ustaw baudrate
   UBRR0 = UBRR_VALUE;
+  // wyczyść rejestr UCSR0A
+  UCSR0A = 0;
   // włącz odbiornik i nadajnik
   UCSR0B = _BV(RXEN0) | _BV(TXEN0);
   // ustaw format 8n1
@@ -28,7 +23,8 @@ void uart_init()
 int uart_transmit(char data, FILE *stream)
 {
   // czekaj aż transmiter gotowy
-  while(!(UCSR0A & _BV(UDRE0)));
+  while (!(UCSR0A & _BV(UDRE0)))
+    ;
   UDR0 = data;
   return 0;
 }
@@ -37,59 +33,130 @@ int uart_transmit(char data, FILE *stream)
 int uart_receive(FILE *stream)
 {
   // czekaj aż znak dostępny
-  while (!(UCSR0A & _BV(RXC0)));
+  while (!(UCSR0A & _BV(RXC0)))
+    ;
   return UDR0;
 }
 
 void timer1_init()
 {
   // ustaw tryb licznika
-  // COM1A = 10   -- non-inverting mode
-  // WGM1  = 1110 -- fast PWM top=ICR1
-  // CS1   = 101  -- prescaler 1024
-  // ICR1  = 15624
-  // częstotliwość 16e6/(1024*(1+15624)) = 1 Hz
-  // wzór: datasheet 20.12.3 str. 164
-  ICR1 = 500;
-  TCCR1A = _BV(COM1A1) | _BV(WGM11);
-  TCCR1B = _BV(WGM12) | _BV(WGM13) | _BV(CS12);
-  // ustaw pin OC1A (PB1) jako wyjście
-  DDRB |= _BV(PB1);
-
+  // WGM1  = 0000 -- normal
+  // CS1   = 001  -- prescaler 1
+  TCCR1B = _BV(CS10);
 }
-
-// inicjalizacja ADC
-void adc_init()
-{
-  ADMUX   = _BV(REFS0); // referencja AVcc, wejście ADC0
-  DIDR0   = _BV(ADC0D); // wyłącz wejście cyfrowe na ADC0
-  // częstotliwość zegara ADC 125 kHz (16 MHz / 128)
-  ADCSRA  = _BV(ADPS0) | _BV(ADPS1) | _BV(ADPS2); // preskaler 128
-  ADCSRA |= _BV(ADEN); // włącz ADC
-}
-
 FILE uart_file;
+
+void foo()
+{
+  volatile uint16_t add_t0, add_t1, mul_t0, mul_t1, div_t0, div_t1;
+  volatile int64_t mul4, div4, add4;
+  volatile float   mul5, div5, add5;
+//   volatile int64_t a4 = 69, b4 = 42;
+  // volatile float   a5 = 69.0, b5 = 42.0;
+  printf("UINT64_T\r\n");
+  TCNT1 = 0;
+  add_t0 = TCNT1; // wartość licznika przed czekaniem
+//   add4 = a4 + b4;
+  add4 = 0xDFFFFFFF + 0xDFFFFFFF;
+  add_t1 = TCNT1; // wartość licznika po czekaniu
+  TCNT1 = 0;
+  mul_t0 = TCNT1; // wartość licznika przed czekaniem
+  mul4 = 0x0000FFFF * 0x0000FFFF;
+  mul_t1 = TCNT1; // wartość licznika przed czekaniem
+  TCNT1 = 0;
+  div_t0 = TCNT1; // wartość licznika przed czekaniem
+  div4 = 0xDFFFFFFF / 0x000000D1;
+  div_t1 = TCNT1; // wartość licznika przed czekaniem
+  printf("Zmierzony czas dodawania : %" PRIu16 " cykli\r\n", add_t1 - add_t0);
+  printf("Zmierzony czas mnozenia  : %" PRIu16 " cykli\r\n", mul_t1 - mul_t0);
+  printf("Zmierzony czas dzielenia : %" PRIu16 " cykli\r\n", div_t1 - div_t0);
+
+  printf("FLOAT\r\n");
+  TCNT1 = 0;
+  add_t0 = TCNT1; // wartość licznika przed czekaniem
+  add5 = 69.0 + 42.0;
+  add_t1 = TCNT1; // wartość licznika po czekaniu
+  TCNT1 = 0;
+  mul_t0 = TCNT1; // wartość licznika przed czekaniem
+  mul5 = 69.0 * 42.0;
+  mul_t1 = TCNT1; // wartość licznika przed czekaniem
+  TCNT1 = 0;
+  div_t0 = TCNT1; // wartość licznika przed czekaniem
+  div5 = 69.0 / 42.0;
+  div_t1 = TCNT1; // wartość licznika przed czekaniem
+  printf("Zmierzony czas dodawania : %" PRIu16 " cykli\r\n", add_t1 - add_t0);
+  printf("Zmierzony czas mnozenia  : %" PRIu16 " cykli\r\n", mul_t1 - mul_t0);
+  printf("Zmierzony czas dzielenia : %" PRIu16 " cykli\r\n", div_t1 - div_t0);
+}
 
 int main()
 {
-  LED_DDR = 0xFF;
-  LED_PORT = _BV(LED);
   // zainicjalizuj UART
   uart_init();
   // skonfiguruj strumienie wejścia/wyjścia
   fdev_setup_stream(&uart_file, uart_transmit, uart_receive, _FDEV_SETUP_RW);
   stdin = stdout = stderr = &uart_file;
-  // zainicjalizuj ADC
-  adc_init();
+  // zainicjalizuj licznik
   timer1_init();
-  // mierz napięcie
-  while(1) {
-    ADCSRA |= _BV(ADSC); // wykonaj konwersję
-    while (!(ADCSRA & _BV(ADIF))); // czekaj na wynik
-    ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
-    uint16_t v = ADC; // weź zmierzoną wartość (0..1023)
-    float R1 = 1024.0 * R2 / v - R2;
-    printf("ADC = %"PRIu16", R1 = %f\r\n", v, R1);
-    OCR1A = ICR1 > 20 * sqrt(v) ? ICR1 - 20 * sqrt(v) : 0;
+  // program testowy
+  volatile uint16_t add_t0, add_t1, mul_t0, mul_t1, div_t0, div_t1;
+  volatile int8_t  mul1, div1, add1;
+  volatile int16_t mul2, div2, add2;
+  volatile int32_t mul3, div3, add3;
+  while (1)
+  {
+    printf("UINT8_T\r\n");
+    TCNT1 = 0;
+    add_t0 = TCNT1; // wartość licznika przed czekaniem
+    add1 = 69 + 42;
+    add_t1 = TCNT1; // wartość licznika po czekaniu
+    TCNT1 = 0;
+    mul_t0 = TCNT1; // wartość licznika przed czekaniem
+    mul1 = 69 * 42;
+    mul_t1 = TCNT1; // wartość licznika przed czekaniem
+    TCNT1 = 0;
+    div_t0 = TCNT1; // wartość licznika przed czekaniem
+    div1 = 69 / 42;
+    div_t1 = TCNT1; // wartość licznika przed czekaniem
+    printf("Zmierzony czas dodawania : %" PRIu16 " cykli\r\n", add_t1 - add_t0);
+    printf("Zmierzony czas mnozenia  : %" PRIu16 " cykli\r\n", mul_t1 - mul_t0);
+    printf("Zmierzony czas dzielenia : %" PRIu16 " cykli\r\n", div_t1 - div_t0);
+
+    printf("UINT16_T\r\n");
+    TCNT1 = 0;
+    add_t0 = TCNT1; // wartość licznika przed czekaniem
+    add2 = 69 + 42;
+    add_t1 = TCNT1; // wartość licznika po czekaniu
+    TCNT1 = 0;
+    mul_t0 = TCNT1; // wartość licznika przed czekaniem
+    mul2 = 69 * 42;
+    mul_t1 = TCNT1; // wartość licznika przed czekaniem
+    TCNT1 = 0;
+    div_t0 = TCNT1; // wartość licznika przed czekaniem
+    div2 = 69 / 42;
+    div_t1 = TCNT1; // wartość licznika przed czekaniem
+    printf("Zmierzony czas dodawania : %" PRIu16 " cykli\r\n", add_t1 - add_t0);
+    printf("Zmierzony czas mnozenia  : %" PRIu16 " cykli\r\n", mul_t1 - mul_t0);
+    printf("Zmierzony czas dzielenia : %" PRIu16 " cykli\r\n", div_t1 - div_t0);
+
+    printf("UINT32_T\r\n");
+    TCNT1 = 0;
+    add_t0 = TCNT1; // wartość licznika przed czekaniem
+    add3 = 69 + 42;
+    add_t1 = TCNT1; // wartość licznika po czekaniu
+    TCNT1 = 0;
+    mul_t0 = TCNT1; // wartość licznika przed czekaniem
+    mul3 = 69 * 42;
+    mul_t1 = TCNT1; // wartość licznika przed czekaniem
+    TCNT1 = 0;
+    div_t0 = TCNT1; // wartość licznika przed czekaniem
+    div3 = 69 / 42;
+    div_t1 = TCNT1; // wartość licznika przed czekaniem
+    printf("Zmierzony czas dodawania : %" PRIu16 " cykli\r\n", add_t1 - add_t0);
+    printf("Zmierzony czas mnozenia  : %" PRIu16 " cykli\r\n", mul_t1 - mul_t0);
+    printf("Zmierzony czas dzielenia : %" PRIu16 " cykli\r\n", div_t1 - div_t0);
+    foo();
+    _delay_ms(10000);
   }
 }
