@@ -7,10 +7,9 @@ function getLastProto(o) {
   return o;
 }
 
-let o1 = {name : "guwno"};
-let o2 = {name : "guunwo"};
+let o1 = {name : "aaa"};
+let o2 = {name : "bbb"};
 console.log(getLastProto(o1) == getLastProto(o2));
-console.log(getLastProto(o1));
 
 let o3 = [];
 let o4 = [];

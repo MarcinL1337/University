@@ -6,17 +6,17 @@ a = np.arange(0, 6.283, 0.01)
 
 
 def h(x):
-    if x < 500 * math.pi:
-        return 1000 * math.sin(x / 1000 + math.pi/2) + 1000
-    elif x > 1000 * math.pi:
-        return 1000 * math.sin(x / 1000 - math.pi) + 1000
+    if x < 50 * math.pi:
+        return 50 * math.sin(x / 50 + math.pi/2) + 50
+    elif x > 50 * math.pi:
+        return 50 * math.sin(x / 50 - math.pi) + 50
     else:
-        return -1000 * math.sin(x / 500 + math.pi) + 1000
+        return -50 * math.sin(x / 25 + math.pi) + 50
 
 
 counter = 0
 
-for i in np.arange(0, 1500 * math.pi, 3):
+for i in np.arange(0, 50 * 150 * math.pi, 10):
     print(math.floor(h(i)), end=", ")
     counter += 1
 

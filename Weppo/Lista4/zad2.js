@@ -7,7 +7,7 @@ let p = {
 };
 let q = {
   surname: "kowalski",
-  name: "dupa",
+  name: "marcin",
 };
 
 Object.setPrototypeOf(p, q);
@@ -28,9 +28,9 @@ function enumerateAllProperties(obj) {
 
 console.log(hasProperty(p, "name"));
 
-console.log(p.name);
-console.log(p.surname);
-console.log(p.name2);
+// console.log(p.name);
+// console.log(p.surname);
+// console.log(p.name2);
 
 enumerateOwnProperties(p);
 enumerateAllProperties(p);
