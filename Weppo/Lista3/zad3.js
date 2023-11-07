@@ -6,10 +6,10 @@ function createFs(n) { // tworzy tablicę n funkcji
     var fs = []; // i-ta funkcja z tablicy ma zwrócić i
     for (var i = 0; i < n; i++) {
         fs[i] =
-            (function () {
-                var j = i; // bez tego dalej będzie stare i
+            (function (j) {
+                //var j = i; // bez tego dalej będzie stare i
                 return function() {return j;};
-            })();
+            })(i);
     };
     return fs;
 }
