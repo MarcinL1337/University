@@ -732,9 +732,9 @@ END GROUP
  *(.stab)
  .stab          0x0000000000000000      0x930 zad3.o
 
-.stabstr        0x0000000000000000     0x10b5
+.stabstr        0x0000000000000000     0x10c5
  *(.stabstr)
- .stabstr       0x0000000000000000     0x10b5 zad3.o
+ .stabstr       0x0000000000000000     0x10c5 zad3.o
 
 .stab.excl
  *(.stab.excl)

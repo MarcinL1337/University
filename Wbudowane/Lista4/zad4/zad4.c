@@ -14,11 +14,11 @@ void timer1_init()
   // ICR1  = 15624
   // częstotliwość 16e6/(1024*(1+15624)) = 1 Hz
   // wzór: datasheet 20.12.3 str. 164
-//   ICR1 = 15624;
+  // ICR1 = 15624;
   OCR1A = 421; // 16000000 / 37900 = 1 + 421
   TCCR1A = _BV(COM1B1) | _BV(WGM11) | _BV(WGM10);
   TCCR1B = _BV(WGM12) | _BV(WGM13) | _BV(CS10) | _BV(ICES1);
-  // ^ Fast PWM Mode, top = OCR1A. ICES1 -> wartość licznika kopiowana do ICR1 przy wzroście sygnału
+  // ^ Fast PWM Mode, top = OCR1A. ICES1 -> wartość licznika kopiowana do ICR1 przy wzroście sygnału na pinie
   // ustaw pin OC1A (PB1) jako wyjście
   DDRB |= _BV(PB2);
 }

@@ -11,15 +11,15 @@
 #define LED_PORT PORTB
 
 typedef struct {
-    uint32_t h;  // Kąt (od 0 do 36000 stopni)
+    uint32_t h;  // Kąt (od 0 do 360 stopni)
     uint32_t s;  // 100
-    uint32_t v;  // Jasność (od 0 do 100)
+    uint32_t v;  // Jasność (od 0 do 1)
 } HSVColor;
 
 typedef struct {
-    uint32_t r;  // Składowa czerwona (0-255)
-    uint32_t g;  // Składowa zielona (0-255)
-    uint32_t b;  // Składowa niebieska (0-255)
+    uint32_t r;
+    uint32_t g;
+    uint32_t b;
 } RGBColor;
 
 
@@ -96,8 +96,8 @@ int main()
     hue = rand() % 360;
     for (int i = 0; i < sizeof(tab)/sizeof(tab[0]); i++) {
       while(TCNT1 != 0);
-      uint32_t value = pgm_read_word(&(tab[i]));
-      RGBColor rgb = HSVtoRGB((HSVColor){.h = hue, .s = 100, .v = value});
+      uint32_t brightness = pgm_read_word(&(tab[i]));
+      RGBColor rgb = HSVtoRGB((HSVColor){.h = hue, .s = 100, .v = brightness});
       OCR1A = (255 - rgb.g);
       OCR1B = (255 - rgb.r);
       OCR2A = (255 - rgb.b);

@@ -545,9 +545,9 @@ END GROUP
  *(.stab)
  .stab          0x0000000000000000      0x654 zad4.o
 
-.stabstr        0x0000000000000000      0xc9b
+.stabstr        0x0000000000000000      0xcab
  *(.stabstr)
- .stabstr       0x0000000000000000      0xc9b zad4.o
+ .stabstr       0x0000000000000000      0xcab zad4.o
 
 .stab.excl
  *(.stab.excl)
