@@ -1,17 +1,21 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include <inttypes.h>
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
 #include <util/delay.h>
 #include <math.h>
 
-#define LED PB5
-#define LED_DDR DDRB
-#define LED_PORT PORTB
+#define BTN PD2
+#define BTN_PIN PIND
+#define BTN_PORT PORTD
 
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
 
 #define R2 2200
+
+float R1;
 
 // inicjalizacja UART
 void uart_init()
@@ -41,21 +45,12 @@ int uart_receive(FILE *stream)
   return UDR0;
 }
 
-void timer1_init()
+void io_init()
 {
-  // ustaw tryb licznika
-  // COM1A = 10   -- non-inverting mode
-  // WGM1  = 1110 -- fast PWM top=ICR1
-  // CS1   = 101  -- prescaler 1024
-  // ICR1  = 15624
-  // częstotliwość 16e6/(1024*(1+15624)) = 1 Hz
-  // wzór: datasheet 20.12.3 str. 164
-  ICR1 = 500;
-  TCCR1A = _BV(COM1A1) | _BV(WGM11);
-  TCCR1B = _BV(WGM12) | _BV(WGM13) | _BV(CS12);
-  // ustaw pin OC1A (PB1) jako wyjście
-  DDRB |= _BV(PB1);
-
+  // ustaw pull-up na PD2 i PD3 (INT0 i INT1)
+  BTN_PORT |= _BV(BTN);
+  EICRA |= _BV(ISC00) | _BV(ISC01); // INT0 wyzwala przerwania zboczem narastającym
+  EIMSK |= _BV(INT0); // Odmaskowanie przerwania dla INT0
 }
 
 // inicjalizacja ADC
@@ -65,30 +60,44 @@ void adc_init()
   DIDR0   = _BV(ADC0D); // wyłącz wejście cyfrowe na ADC0
   // częstotliwość zegara ADC 125 kHz (16 MHz / 128)
   ADCSRA  = _BV(ADPS0) | _BV(ADPS1) | _BV(ADPS2); // preskaler 128
+
+  /*
+    When this bit is written to one, Auto Triggering of the ADC is enabled. The ADC will start a conversion on a positive
+    edge of the selected trigger signal. The trigger source is selected by setting the ADC Trigger Select bits, ADTS in
+    ADCSRB.
+  */
+  ADCSRA |= _BV(ADATE);
   ADCSRA |= _BV(ADEN); // włącz ADC
+  ADCSRA |= _BV(ADIE); // ADC Conversion Complete Interrupt is activated.
+
+  // If ADATE in ADCSRA is written to one, the value of these bits selects which source will trigger an ADC conversion.
+  ADCSRB |= _BV(ADTS1); // External Interrupt Request 0
+  
 }
+
+ISR(ADC_vect){
+    uint16_t v = ADC; // weź zmierzoną wartość (0..1023)
+    R1 = 1024.0 * R2 / v - R2;
+}
+
+ISR(INT0_vect){}
 
 FILE uart_file;
 
 int main()
 {
-  LED_DDR = 0xFF;
   // zainicjalizuj UART
   uart_init();
   // skonfiguruj strumienie wejścia/wyjścia
   fdev_setup_stream(&uart_file, uart_transmit, uart_receive, _FDEV_SETUP_RW);
   stdin = stdout = stderr = &uart_file;
   // zainicjalizuj ADC
+  io_init();
   adc_init();
-  timer1_init();
+  sei();
   // mierz napięcie
   while(1) {
-    ADCSRA |= _BV(ADSC); // wykonaj konwersję
-    while (!(ADCSRA & _BV(ADIF))); // czekaj na wynik
-    ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
-    uint16_t v = ADC; // weź zmierzoną wartość (0..1023)
-    float R1 = 1024.0 * R2 / v - R2;
-    printf("ADC = %"PRIu16", R1 = %f\r\n", v, R1);
-    OCR1A = ICR1 > 20 * sqrt(v) ? ICR1 - 20 * sqrt(v) : 0;
+    printf("R1 = %f\r\n", R1);
+    _delay_ms(2000);
   }
 }
