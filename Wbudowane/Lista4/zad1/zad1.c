@@ -52,11 +52,19 @@ void foo()
   volatile uint16_t add_t0, add_t1, mul_t0, mul_t1, div_t0, div_t1;
   volatile int64_t mul4, div4, add4;
   volatile float   mul5, div5, add5;
+<<<<<<< HEAD
   // volatile int64_t a4 = 69, b4 = 42;
+=======
+  volatile int64_t a4 = 69000, b4 = 4200;
+  volatile float a5 = 6.9, b5 = 4.2;
+
+//   volatile int64_t a4 = 69, b4 = 42;
+>>>>>>> 052e28f0119f5284c3c1efde44a2cd420072400a
   // volatile float   a5 = 69.0, b5 = 42.0;
   printf("UINT64_T\r\n");
   TCNT1 = 0;
   add_t0 = TCNT1; // wartość licznika przed czekaniem
+<<<<<<< HEAD
   // add4 = a4 + b4;
   add4 = 0xDFFC2FA1 + 0x8F9AFF5F;
   add_t1 = TCNT1; // wartość licznika po czekaniu
@@ -68,12 +76,26 @@ void foo()
   div_t0 = TCNT1;
   div4 = 0xDFFFFFFF / 0x000002D1;
   div_t1 = TCNT1;
+=======
+//   add4 = a4 + b4;
+  add4 = a4 + b4;
+  add_t1 = TCNT1; // wartość licznika po czekaniu
+  TCNT1 = 0;
+  mul_t0 = TCNT1; // wartość licznika przed czekaniem
+  mul4 = a4 * b4;
+  mul_t1 = TCNT1; // wartość licznika przed czekaniem
+  TCNT1 = 0;
+  div_t0 = TCNT1; // wartość licznika przed czekaniem
+  div4 = a4 / b4;
+  div_t1 = TCNT1; // wartość licznika przed czekaniem
+>>>>>>> 052e28f0119f5284c3c1efde44a2cd420072400a
   printf("Zmierzony czas dodawania : %" PRIu16 " cykli\r\n", add_t1 - add_t0);
   printf("Zmierzony czas mnozenia  : %" PRIu16 " cykli\r\n", mul_t1 - mul_t0);
   printf("Zmierzony czas dzielenia : %" PRIu16 " cykli\r\n", div_t1 - div_t0);
 
   printf("FLOAT\r\n");
   TCNT1 = 0;
+<<<<<<< HEAD
   add_t0 = TCNT1;
   add5 = 69.0 + 42.0;
   add_t1 = TCNT1;
@@ -85,6 +107,19 @@ void foo()
   div_t0 = TCNT1;
   div5 = 69.0 / 42.0;
   div_t1 = TCNT1;
+=======
+  add_t0 = TCNT1; // wartość licznika przed czekaniem
+  add5 = a5 + b5;
+  add_t1 = TCNT1; // wartość licznika po czekaniu
+  TCNT1 = 0;
+  mul_t0 = TCNT1; // wartość licznika przed czekaniem
+  mul5 = a5 * b5;
+  mul_t1 = TCNT1; // wartość licznika przed czekaniem
+  TCNT1 = 0;
+  div_t0 = TCNT1; // wartość licznika przed czekaniem
+  div5 = a5 / b5;
+  div_t1 = TCNT1; // wartość licznika przed czekaniem
+>>>>>>> 052e28f0119f5284c3c1efde44a2cd420072400a
   printf("Zmierzony czas dodawania : %" PRIu16 " cykli\r\n", add_t1 - add_t0);
   printf("Zmierzony czas mnozenia  : %" PRIu16 " cykli\r\n", mul_t1 - mul_t0);
   printf("Zmierzony czas dzielenia : %" PRIu16 " cykli\r\n", div_t1 - div_t0);
@@ -104,10 +139,14 @@ int main()
   volatile int8_t  mul1, div1, add1;
   volatile int16_t mul2, div2, add2;
   volatile int32_t mul3, div3, add3;
+  volatile int8_t a1 = 6, b1 = 9;
+  volatile int16_t a2 = 69, b2 = 42;
+  volatile int32_t a3 = 690, b3 = 42;
   while (1)
   {
     printf("UINT8_T\r\n");
     TCNT1 = 0;
+<<<<<<< HEAD
     add_t0 = TCNT1;
     add1 = 69 + 42;
     add_t1 = TCNT1;
@@ -119,12 +158,26 @@ int main()
     div_t0 = TCNT1;
     div1 = 126 / 42;
     div_t1 = TCNT1;
+=======
+    add_t0 = TCNT1; // wartość licznika przed czekaniem
+    add1 = a1 + b1;
+    add_t1 = TCNT1; // wartość licznika po czekaniu
+    TCNT1 = 0;
+    mul_t0 = TCNT1; // wartość licznika przed czekaniem
+    mul1 = a1 * b1;
+    mul_t1 = TCNT1; // wartość licznika przed czekaniem
+    TCNT1 = 0;
+    div_t0 = TCNT1; // wartość licznika przed czekaniem
+    div1 = a1 / b1;
+    div_t1 = TCNT1; // wartość licznika przed czekaniem
+>>>>>>> 052e28f0119f5284c3c1efde44a2cd420072400a
     printf("Zmierzony czas dodawania : %" PRIu16 " cykli\r\n", add_t1 - add_t0);
     printf("Zmierzony czas mnozenia  : %" PRIu16 " cykli\r\n", mul_t1 - mul_t0);
     printf("Zmierzony czas dzielenia : %" PRIu16 " cykli\r\n", div_t1 - div_t0);
 
     printf("UINT16_T\r\n");
     TCNT1 = 0;
+<<<<<<< HEAD
     add_t0 = TCNT1;
     add2 = 69 + 420;
     add_t1 = TCNT1;
@@ -136,12 +189,26 @@ int main()
     div_t0 = TCNT1;
     div2 = 69 / 42;
     div_t1 = TCNT1;
+=======
+    add_t0 = TCNT1; // wartość licznika przed czekaniem
+    add2 = a2 + b2;
+    add_t1 = TCNT1; // wartość licznika po czekaniu
+    TCNT1 = 0;
+    mul_t0 = TCNT1; // wartość licznika przed czekaniem
+    mul2 = a2 * b2;
+    mul_t1 = TCNT1; // wartość licznika przed czekaniem
+    TCNT1 = 0;
+    div_t0 = TCNT1; // wartość licznika przed czekaniem
+    div2 = a2 / b2;
+    div_t1 = TCNT1; // wartość licznika przed czekaniem
+>>>>>>> 052e28f0119f5284c3c1efde44a2cd420072400a
     printf("Zmierzony czas dodawania : %" PRIu16 " cykli\r\n", add_t1 - add_t0);
     printf("Zmierzony czas mnozenia  : %" PRIu16 " cykli\r\n", mul_t1 - mul_t0);
     printf("Zmierzony czas dzielenia : %" PRIu16 " cykli\r\n", div_t1 - div_t0);
 
     printf("UINT32_T\r\n");
     TCNT1 = 0;
+<<<<<<< HEAD
     add_t0 = TCNT1;
     add3 = 69000 + 420000;
     add_t1 = TCNT1;
@@ -153,6 +220,19 @@ int main()
     div_t0 = TCNT1;
     div3 = 6900000 / 42;
     div_t1 = TCNT1;
+=======
+    add_t0 = TCNT1; // wartość licznika przed czekaniem
+    add3 = a3 + b3;
+    add_t1 = TCNT1; // wartość licznika po czekaniu
+    TCNT1 = 0;
+    mul_t0 = TCNT1; // wartość licznika przed czekaniem
+    mul3 = a3 * b3;
+    mul_t1 = TCNT1; // wartość licznika przed czekaniem
+    TCNT1 = 0;
+    div_t0 = TCNT1; // wartość licznika przed czekaniem
+    div3 = a3 / b3;
+    div_t1 = TCNT1; // wartość licznika przed czekaniem
+>>>>>>> 052e28f0119f5284c3c1efde44a2cd420072400a
     printf("Zmierzony czas dodawania : %" PRIu16 " cykli\r\n", add_t1 - add_t0);
     printf("Zmierzony czas mnozenia  : %" PRIu16 " cykli\r\n", mul_t1 - mul_t0);
     printf("Zmierzony czas dzielenia : %" PRIu16 " cykli\r\n", div_t1 - div_t0);
