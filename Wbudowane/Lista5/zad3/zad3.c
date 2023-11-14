@@ -62,8 +62,8 @@ FILE uart_file;
 
 int main()
 {
-  // SMCR = _BV(SM0) | _BV(SE); //sleep mode ADC + usypianie komendą sleep()
-  set_sleep_mode(SLEEP_MODE_ADC);
+  SMCR = _BV(SM0) | _BV(SE); //sleep mode ADC + usypianie komendą sleep()
+  // set_sleep_mode(SLEEP_MODE_ADC);
   uart_init();
   
   fdev_setup_stream(&uart_file, uart_transmit, uart_receive, _FDEV_SETUP_RW);
