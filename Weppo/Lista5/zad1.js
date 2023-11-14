@@ -1,2 +1,2 @@
 let a = require('./zad1a');
-a.work_a(5);
+a.fun_a(5);
