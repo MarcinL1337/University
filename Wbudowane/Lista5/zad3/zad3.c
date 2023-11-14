@@ -55,15 +55,15 @@ ISR(ADC_vect){
   ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
   uint16_t v = ADC; // weź zmierzoną wartość (0..1023)
   res = 1.1 * 1024 / v;
-  printf("Odczytano: %fV\r\n", res);
+  // printf("Odczytano: %fV\r\n", res);
 }
 
 FILE uart_file;
 
 int main()
 {
-  SMCR = _BV(SM0) | _BV(SE); //sleep mode ADC + usypianie komendą sleep()
-  // set_sleep_mode(SLEEP_MODE_ADC);
+  // SMCR = _BV(SM0) | _BV(SE); //sleep mode ADC + usypianie komendą sleep()
+  set_sleep_mode(SLEEP_MODE_ADC);
   uart_init();
   
   fdev_setup_stream(&uart_file, uart_transmit, uart_receive, _FDEV_SETUP_RW);
@@ -87,6 +87,7 @@ int main()
     ADCSRA |= _BV(ADIE);
     for(int i = 0; i < 10; i++){
       sleep_mode();
+      printf("\rOdczytano: %fV\r\n", res);
       _delay_ms(500);
     }
   }
