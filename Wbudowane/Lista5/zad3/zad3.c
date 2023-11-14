@@ -8,6 +8,8 @@
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
 
+float res;
+
 // inicjalizacja UART
 void uart_init()
 {
@@ -39,61 +41,53 @@ int uart_receive(FILE *stream)
 // inicjalizacja ADC
 void adc_init()
 {
-  // ADMUX   = _BV(REFS0); // referencja AVcc, wejście ADC0
   ADMUX = 0b01001110;
   DIDR0   = _BV(ADC0D); // wyłącz wejście cyfrowe na ADC0
   // częstotliwość zegara ADC 125 kHz (16 MHz / 128)
   ADCSRA  = _BV(ADPS0) | _BV(ADPS1) | _BV(ADPS2); // preskaler 128
   ADCSRA |= _BV(ADEN); // włącz ADC
-  ADCSRA |= _BV(ADIE); // ADC Conversion Complete Interrupt is activated.
+  // ADCSRA |= _BV(ADIE); // ADC Conversion Complete Interrupt is activated.
 }
 
 ISR(ADC_vect){
-
+  ADCSRA |= _BV(ADSC); // wykonaj konwersję
+  while (!(ADCSRA & _BV(ADIF))); // czekaj na wynik
+  ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
+  uint16_t v = ADC; // weź zmierzoną wartość (0..1023)
+  res = 1.1 * 1024 / v;
+  printf("Odczytano: %fV\r\n", res);
 }
 
 FILE uart_file;
 
 int main()
 {
-  SMCR = _BV(SM0) | _BV(SE); //sleep mode ADC + usypianie komendą sleep()
-  
-
-  DDRB = 0xff;
-  PORTB = _BV(PB5);
-  // zainicjalizuj UART
+  // SMCR = _BV(SM0) | _BV(SE); //sleep mode ADC + usypianie komendą sleep()
+  set_sleep_mode(SLEEP_MODE_ADC);
   uart_init();
-  // skonfiguruj strumienie wejścia/wyjścia
+  
   fdev_setup_stream(&uart_file, uart_transmit, uart_receive, _FDEV_SETUP_RW);
   stdin = stdout = stderr = &uart_file;
-  // zainicjalizuj ADC
+  
   adc_init();
-  // mierz napięcie
+  sei();
   while(1) {
-    for(int i = 0; i < 20; i++){  
+    printf("Pomiar normalny:\r\n");
+    ADCSRA &= ~_BV(ADIE);
+    for(int i = 0; i < 10; i++){  
       ADCSRA |= _BV(ADSC); // wykonaj konwersję
-      PORTB |= _BV(PB5);
       while (!(ADCSRA & _BV(ADIF))); // czekaj na wynik
       ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
       uint16_t v = ADC; // weź zmierzoną wartość (0..1023)
-      PORTB &= ~_BV(PB5);
       float calculation = 1.1 * 1024 / v;
       printf("Odczytano: %fV\r\n", calculation);
-      _delay_ms(100);
+      _delay_ms(500);
     }
-    for(int i = 0; i < 20; i++){
-      // http://wiring.org.co/reference/sleepMode_.html
-      //nosleep(); -> budzenie
-      sleep(); //__sleep(); // sleep_cpu();
-      ADCSRA |= _BV(ADSC); // wykonaj konwersję
-      PORTB |= _BV(PB5);
-      while (!(ADCSRA & _BV(ADIF))); // czekaj na wynik
-      ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
-      uint16_t v = ADC; // weź zmierzoną wartość (0..1023)
-      PORTB &= ~_BV(PB5);
-      float calculation = 1.1 * 1024 / v;
-      printf("Odczytano: %fV\r\n", calculation);
-      _delay_ms(100);
+    printf("Pomiar z ADC Noise Reduction:\r\n");
+    ADCSRA |= _BV(ADIE);
+    for(int i = 0; i < 10; i++){
+      sleep_mode();
+      _delay_ms(500);
     }
   }
 }
