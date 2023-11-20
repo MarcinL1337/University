@@ -72,6 +72,7 @@ FILE uart_file;
 ISR(USART_RX_vect){
   data = UDR0;
   UDR0 = data;
+  // UDR0 = UDR0;
 }
 
 ISR(USART_TX_vect){
