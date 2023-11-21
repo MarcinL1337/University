@@ -7,8 +7,8 @@
 
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
+#define no_of_measurements 10
 
-int8_t no_of_measurements = 10;
 float res;
 
 float with_adc[no_of_measurements], without_adc[no_of_measurements];
@@ -105,7 +105,7 @@ int main()
     avg2 /= no_of_measurements;
 
     float war1 = 0.0, war2 = 0.0;
-    for(int i = 0; i < no_of_measurements){
+    for(int i = 0; i < no_of_measurements; i++){
       war1 += (with_adc[i] - avg1) * (with_adc[i] - avg1);
       war2 += (without_adc[i] - avg2) * (without_adc[i] - avg2);
     }
