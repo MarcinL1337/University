@@ -23,15 +23,15 @@ type User = {
     },
   ];
 
-import logPerson from "./zad5";
+import log from "./zad5";
 
 import { fib_memo } from "./zad2";
 
 
 let arr = [1, 2, 3, 4];
 
-logPerson(persons[0]);
-logPerson(persons[1]);
+log(persons[0]);
+log(persons[1]);
 
 const fib = fib_memo();
 console.log(fib(15));

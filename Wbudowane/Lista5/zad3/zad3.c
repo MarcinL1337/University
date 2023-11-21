@@ -8,7 +8,10 @@
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
 
+int8_t no_of_measurements = 10;
 float res;
+
+float with_adc[no_of_measurements], without_adc[no_of_measurements];
 
 // inicjalizacja UART
 void uart_init()
@@ -74,21 +77,44 @@ int main()
   while(1) {
     printf("Pomiar normalny:\r\n");
     ADCSRA &= ~_BV(ADIE);
-    for(int i = 0; i < 10; i++){  
+    for(int i = 0; i < no_of_measurements; i++){  
       ADCSRA |= _BV(ADSC); // wykonaj konwersję
       while (!(ADCSRA & _BV(ADIF))); // czekaj na wynik
       ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
       uint16_t v = ADC; // weź zmierzoną wartość (0..1023)
       float calculation = 1.1 * 1024 / v;
+      without_adc[i] = calculation;
       printf("Odczytano: %fV\r\n", calculation);
-      _delay_ms(500);
+      _delay_ms(200);
     }
     printf("Pomiar z ADC Noise Reduction:\r\n");
     ADCSRA |= _BV(ADIE);
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < no_of_measurements; i++){
       sleep_mode();
+      with_adc[i] = res;
       printf("\rOdczytano: %fV\r\n", res);
-      _delay_ms(500);
+      _delay_ms(200);
     }
+
+    float avg1 = 0.0, avg2 = 0.0;
+    for(int i = 0; i < no_of_measurements; i++){
+      avg1 += with_adc[i];
+      avg2 += without_adc[i];
+    }
+    avg1 /= no_of_measurements;
+    avg2 /= no_of_measurements;
+
+    float war1 = 0.0, war2 = 0.0;
+    for(int i = 0; i < no_of_measurements){
+      war1 += (with_adc[i] - avg1) * (with_adc[i] - avg1);
+      war2 += (without_adc[i] - avg2) * (without_adc[i] - avg2);
+    }
+
+    war1 /= no_of_measurements;
+    war2 /= no_of_measurements;
+
+    printf("Wariancja dla pomiaru bez ADC Noise Reduction: %f\n\r", war2);
+    printf("Wariancja dla pomiaru z ADC Noise Reduction: %f\n\r", war1);
+
   }
 }
