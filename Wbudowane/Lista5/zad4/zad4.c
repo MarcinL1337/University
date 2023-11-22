@@ -10,7 +10,9 @@
 #define LED_DDR DDRB
 #define LED_PORT PORTB
 #define TOP 15624
-uint16_t sample = 0;
+uint16_t sample = 0, x;
+uint32_t diff;
+int8_t Ovf;
 
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
@@ -57,10 +59,10 @@ void timer1_init() {
 }
 
 ISR(TIMER1_CAPT_vect) {
-  uint16_t x = ICR1;
-  uint16_t diff = abs(x - sample);
+  x = ICR1;
+  Ovf = x < sample ? 1 : 0;
+  diff = (Ovf * 15624) + x - sample;
   sample = x;
-  printf("Measurement: %u \r\n", diff);
 }
 
 // ICP1 zczytuje wartość licznika jak przychodzi impuls z detektora i zapisuje do ICR1
@@ -79,5 +81,6 @@ int main(){
 
   while(1){
     sleep_mode();
+    printf("Measurement: %u \r\n", 15625/diff);
   }
 }
