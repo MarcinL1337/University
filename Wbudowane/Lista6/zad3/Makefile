@@ -1,5 +1,5 @@
 
-PRG            = zad4
+PRG            = zad3v2
 OBJ            = ${PRG}.o
 PROGRAMMER     = arduino
 PORT           = /dev/ttyUSB0

@@ -2,9 +2,23 @@
 #include <stdio.h>
 #include <inttypes.h>
 #include <avr/pgmspace.h>
+#include <util/delay.h>
+
+#define FOSC 1000000
 
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
+
+#define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c"
+#define BYTE_TO_BINARY(byte)   \
+  ((byte) & 0x80 ? '1' : '0'), \
+  ((byte) & 0x40 ? '1' : '0'), \
+  ((byte) & 0x20 ? '1' : '0'), \
+  ((byte) & 0x10 ? '1' : '0'), \
+  ((byte) & 0x08 ? '1' : '0'), \
+  ((byte) & 0x04 ? '1' : '0'), \
+  ((byte) & 0x02 ? '1' : '0'), \
+  ((byte) & 0x01 ? '1' : '0')
 
 const unsigned char dzwiek_raw[] PROGMEM = {
   0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7e, 0x7e, 0x7f, 0x7f, 0x7e, 0x7e,
@@ -1404,10 +1418,10 @@ const unsigned char dzwiek_raw[] PROGMEM = {
 unsigned int dzwiek_raw_len = 25066;
 
 static inline uint16_t idk(uint8_t data){
-    uint16_t ret = data;
-    ret <<= 4;
-    ret |= 0x3000;
-    return ret;
+  uint16_t ret = data & 0x00FF;
+  ret <<= 4;
+  ret |= 0x7000;
+  return ret;
 }
 
 // inicjalizacja UART
@@ -1448,7 +1462,7 @@ void spi_init()
     // ustaw piny MOSI, SCK i ~SS jako wyjścia
     DDRB |= _BV(DDB3) | _BV(DDB5) | _BV(DDB2);
     // włącz SPI w trybie master z zegarem 250 kHz
-    SPCR = _BV(SPE) | _BV(MSTR) | _BV(SPR1) | _BV(SPR0);
+    SPCR = _BV(SPE) | _BV(MSTR) | _BV(SPR1);
 }
 
 // transfer jednego bajtu
@@ -1468,7 +1482,7 @@ int main()
 {
   // zainicjalizuj UART
   uart_init();
-  DDRB |= _BV(PB1);
+  DDRB |= _BV(PB2);
   // skonfiguruj strumienie wejścia/wyjścia
   fdev_setup_stream(&uart_file, uart_transmit, uart_receive, _FDEV_SETUP_RW);
   stdin = stdout = stderr = &uart_file;
@@ -1476,17 +1490,24 @@ int main()
   spi_init();
   // program testujący połączenie
   uint16_t v = 0;
+  PORTB |= _BV(PB2);
   while(1) {
-    for(int16_t i = 0; i < 10000; i++) {      
-        v = idk(pgm_read_byte(&dzwiek_raw[i]));
-        uint8_t v1, v2;
-        v1 = v;
-        v2 = v >> 8;
-        PORTB &= ~_BV(PB1);
-        uint8_t w1 = spi_transfer(v1);
-        uint8_t w2 = spi_transfer(v2);
-        printf("w1 = %d, w2 = %d\r\nv1 = %d, v2 = %d\n\r", w1, w2, v1, v2);
-        PORTB |= _BV(PB1);}
+    for(int16_t i = 0; i < dzwiek_raw_len; i++) {
+      unsigned char dzwiek = pgm_read_word(&(dzwiek_raw[i]));
+      v = idk(dzwiek);
+      uint8_t v1, v2;
+      v1 = v & 0xFF;
+      v2 = v >> 8;
+      PORTB &= ~_BV(PB2);
+      uint8_t w2 = spi_transfer(v2);
+      uint8_t w1 = spi_transfer(v1);
+      PORTB |= _BV(PB2);
+      _delay_us(10);
+      // _delay_ms(10);
+      // printf("w1 = %X, w2 = %X\r\nv1 = %X, v2 = %X\n\r", w1, w2, v1, v2);
+      // printf("\n\rv1 = "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY((v1)));
+      // printf("\n\rv2 = "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY((v2)));
+    }
     // printf("Wysłano: %"PRId8" Odczytano: %"PRId8"\r\n", v, w);
     // v++;
   }

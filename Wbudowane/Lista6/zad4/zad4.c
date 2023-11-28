@@ -91,10 +91,6 @@ int main()
         uint8_t v = digits[i];
         uint8_t w = spi_transfer(v);
         _delay_ms(1000);
-        // PORTB |= _BV(PB2);
-        // PORTB &= ~_BV(PB1);
-        // _delay_ms(1000);
-        // PORTB &= ~_BV(PB2);
     }
   }
 }

@@ -17,6 +17,7 @@
         "ranges": "cpp",
         "regex": "cpp",
         "valarray": "cpp",
-        "inttypes.h": "c"
+        "inttypes.h": "c",
+        "cstddef": "c"
     }
 }

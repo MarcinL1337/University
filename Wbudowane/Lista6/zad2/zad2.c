@@ -106,14 +106,21 @@ int main()
   // print("%s\r\n", output);
 
   char wczytaj[100];
-  scanf("%s", &wczytaj);
+  // scanf("%s", &wczytaj);
+  char c;
+  int8_t i = 0;
+  while((c = getc(stdin)) != '\n'){
+    wczytaj[i] = c;
+    i++;
+  }
+  wczytaj[i+1] = '\0';
   printf("\r\n%s", wczytaj);
 
-  scanf("%s", &wczytaj);
-  printf("\r\n%s", wczytaj);
+  // scanf("%s", &wczytaj);
+  // printf("\r\n%s", wczytaj);
 
-  scanf("%s", &wczytaj);
-  printf("%s", wczytaj);
+  // scanf("%s", &wczytaj);
+  // printf("\r\n%s", wczytaj);
 
   while(1);
 }
