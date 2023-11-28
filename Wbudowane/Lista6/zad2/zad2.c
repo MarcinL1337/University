@@ -4,6 +4,7 @@
 #include <inttypes.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
+#include <string.h>
 
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
@@ -100,27 +101,25 @@ int main()
   sei();
   printf("Hello world!\r\n");
   printf("Proszę państwa to się transmituje\r\n");
-  // printf("\r\n");
-  // char output[buf_size];
-  // scanf("%s", &output);
-  // print("%s\r\n", output);
 
   char wczytaj[100];
-  // scanf("%s", &wczytaj);
-  char c;
-  int8_t i = 0;
-  while((c = getc(stdin)) != '\n'){
-    wczytaj[i] = c;
-    i++;
+  scanf("%s", &wczytaj);
+
+  for(int i = 0; i <= strlen(wczytaj); i++){
+    putc(wczytaj[i], stdout);
   }
-  wczytaj[i+1] = '\0';
-  printf("\r\n%s", wczytaj);
+  printf("\r\n");
+  scanf("%s", &wczytaj);
 
-  // scanf("%s", &wczytaj);
-  // printf("\r\n%s", wczytaj);
+  for(int i = 0; i <= strlen(wczytaj); i++){
+    putc(wczytaj[i], stdout);
+  }
+  printf("\r\n");
+  scanf("%s", &wczytaj);
 
-  // scanf("%s", &wczytaj);
-  // printf("\r\n%s", wczytaj);
+  for(int i = 0; i <= strlen(wczytaj); i++){
+    putc(wczytaj[i], stdout);
+  }
 
   while(1);
 }
