@@ -98,6 +98,6 @@ int main()
   // mierz napięcie
   while(1) {
     printf("R1 = %f\r\n", R1);
-    _delay_ms(2000);
+    _delay_ms(1000);
   }
 }

@@ -9,9 +9,9 @@
 #define LED PB5
 #define LED_DDR DDRB
 #define LED_PORT PORTB
-#define TOP 15624
-uint16_t sample = 0, x;
-uint32_t diff;
+
+uint16_t sample = 0, temp_ICR1;
+uint32_t freq;
 int8_t Ovf;
 
 #define BAUD 9600                          // baudrate
@@ -48,27 +48,20 @@ int uart_receive(FILE *stream)
 FILE uart_file;
 
 void timer1_init() {
-  OCR1A = TOP; // 16e6 / 37900 = 1 + 421
+  OCR1A = 15624;
   TCCR1A =  _BV(WGM11) | _BV(WGM10);
   TCCR1B = _BV(WGM12) | _BV(WGM13) | _BV(ICES1) | _BV(CS12) | _BV(CS10); // preskaler 1024
   // ^ Fast PWM Mode, top = OCR1A. ICES1 -> wartość licznika kopiowana do ICR1 przy wzroście sygnału na pinie
-  // odmaskowanie przerwania przepełnienia licznika
+  // odmaskowanie przerwania input capture
   TIMSK1 |= _BV(ICIE1);
-  // ustaw pin OC1A (PB1) jako wyjście
-  // DDRB |= _BV(PB2);
 }
 
 ISR(TIMER1_CAPT_vect) {
-  x = ICR1;
-  Ovf = x < sample ? 1 : 0;
-  diff = (Ovf * 15624) + x - sample;
-  sample = x;
+  temp_ICR1 = ICR1;
+  Ovf = temp_ICR1 < sample ? 1 : 0;
+  freq = (Ovf * 15624) + temp_ICR1 - sample;
+  sample = temp_ICR1;
 }
-
-// ICP1 zczytuje wartość licznika jak przychodzi impuls z detektora i zapisuje do ICR1
-// Czujnik jak coś wykryje to puszcza sygnał do D8 (ICP1). ICP1 to port zegara i jak przychodzi sygnał, to
-// odpowiednio ustawiony (_BV(ICES1)), zapisuje swoją aktualną wartość do ICR1, więc jak ICR1 zmienia wartość, na inną
-// to znaczy, że coś wykrył.
 
 int main(){
   timer1_init();
@@ -81,6 +74,7 @@ int main(){
 
   while(1){
     sleep_mode();
-    printf("Measurement: %u \r\n", 15625/diff);
+    printf("Frequency = %f \r\n", 15625.0/freq);
+    // _delay_ms(500);
   }
 }
