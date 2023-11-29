@@ -32,7 +32,7 @@ void uart_init()
     only if the TXCIEn bit is written to one, the Global Interrupt Flag in SREG is written to one and the TXCn bit in UCS-
     RnA is set.
   */
-  UCSR0B |= _BV(RXCIE0) | _BV(TXCIE0);
+  UCSR0B |= _BV(RXCIE0);
   // UCSR0A = _BV(TXC0) | _BV(RXC0); To się ustawia samo, jak w rejestrze jest nieprzeczytana data / opróżniany jest bufor transmit
 
   // ustaw format 8n1
@@ -43,6 +43,11 @@ void uart_init()
 int uart_transmit(char data, FILE *stream)
 {
   // czekaj aż transmiter gotowy
+  /*
+    The Data Register Empty (UDREn) Flag indicates whether the transmit buffer is ready to receive new data. This bit
+    is set when the transmit buffer is empty, and cleared when the transmit buffer contains data to be transmitted that
+    has not yet been moved into the Shift Register. 
+  */
   while(!(UCSR0A & _BV(UDRE0)));
   UDR0 = data;
   return 0;
@@ -72,11 +77,10 @@ FILE uart_file;
 ISR(USART_RX_vect){
   data = UDR0;
   UDR0 = data;
-  // UDR0 = UDR0;
-}
-
-ISR(USART_TX_vect){
-  
+  if(data == '\r'){
+    data = '\n';
+    UDR0 = data;
+  }
 }
 
 
