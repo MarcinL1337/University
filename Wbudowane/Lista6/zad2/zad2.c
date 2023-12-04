@@ -52,7 +52,6 @@ void uart_init()
 int uart_transmit(char data, FILE *stream)
 {
   // Czekaj, jeżeli bufor nadawania jest pełny
-  // while(transmit_read == ((transmit_write + 1) % buf_size));
   while(transmit_read == transmit_write);
   transmit_buffer[transmit_write] = data;
   transmit_write = (transmit_write + 1) % buf_size;
@@ -104,22 +103,28 @@ int main()
 
   char wczytaj[100];
   scanf("%s", &wczytaj);
-
-  for(int i = 0; i <= strlen(wczytaj); i++){
-    putc(wczytaj[i], stdout);
-  }
-  printf("\r\n");
+  printf("%s\r\n", wczytaj);
+  
   scanf("%s", &wczytaj);
+  printf("%s\r\n", wczytaj);
 
-  for(int i = 0; i <= strlen(wczytaj); i++){
-    putc(wczytaj[i], stdout);
-  }
-  printf("\r\n");
   scanf("%s", &wczytaj);
+  printf("%s\r\n", wczytaj);
+  // for(int i = 0; i <= strlen(wczytaj); i++){
+  //   putc(wczytaj[i], stdout);
+  // }
+  // printf("\r\n");
+  // scanf("%s", &wczytaj);
 
-  for(int i = 0; i <= strlen(wczytaj); i++){
-    putc(wczytaj[i], stdout);
-  }
+  // for(int i = 0; i <= strlen(wczytaj); i++){
+  //   putc(wczytaj[i], stdout);
+  // }
+  // printf("\r\n");
+  // scanf("%s", &wczytaj);
+
+  // for(int i = 0; i <= strlen(wczytaj); i++){
+  //   putc(wczytaj[i], stdout);
+  // }
 
   while(1);
 }

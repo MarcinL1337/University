@@ -85,11 +85,10 @@ int main()
   // program testujący połączenie
   uint8_t v = 0;
   while(1) {
-    uint8_t w = spi_transfer(v);
     PORTB |= _BV(PB1);
     for(int i = 0; i < 10; i++){
         uint8_t v = digits[i];
-        uint8_t w = spi_transfer(v);
+        spi_transfer(v);
         _delay_ms(1000);
     }
   }
