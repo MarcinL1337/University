@@ -18,6 +18,8 @@
         "regex": "cpp",
         "valarray": "cpp",
         "inttypes.h": "c",
-        "cstddef": "c"
+        "cstddef": "c",
+        "future": "c",
+        "system_error": "c"
     }
 }
