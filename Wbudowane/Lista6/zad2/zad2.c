@@ -108,8 +108,7 @@ int main()
   scanf("%s", &wczytaj);
   printf("%s\r\n", wczytaj);
 
-  scanf("%s", &wczytaj);
-  printf("%s\r\n", wczytaj);
+  
   // for(int i = 0; i <= strlen(wczytaj); i++){
   //   putc(wczytaj[i], stdout);
   // }
@@ -126,5 +125,8 @@ int main()
   //   putc(wczytaj[i], stdout);
   // }
 
-  while(1);
+  while(1){
+    scanf("%s", &wczytaj);
+    printf("%s\r\n", wczytaj);
+  }
 }
