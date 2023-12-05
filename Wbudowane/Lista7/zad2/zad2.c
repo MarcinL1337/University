@@ -117,7 +117,6 @@ int main()
     char i8hex[400];
     uint8_t write_len;
     while(1) {
-
         scanf("%s", command);
         if(strcmp(command, "write") == 0){
             // printf("write ");

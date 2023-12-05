@@ -50,36 +50,12 @@ FILE uart_file;
 
 const uint8_t eeprom_addr = 0xD0;
 
-static inline void write_sec(uint8_t sec){
+static inline void write(uint16_t addr, uint8_t data){
     i2cStart();
-    i2cSend(eeprom_addr); // eeprom_addr | 2;
-    i2cSend(0);
-    uint8_t high, low;
-    high = (sec / 10) << 4;
-    low = sec % 10;
-    i2cSend(high | low);
-    i2cStop();
-}
-
-static inline void write_min(uint8_t min){
-    i2cStart();
-    i2cSend(eeprom_addr); // eeprom_addr | 2;
-    i2cSend(1);
-    uint8_t high, low;
-    high = (min / 10) << 4;
-    low = min % 10;
-    i2cSend(high | low);
-    i2cStop();
-}
-
-static inline void write_hour(uint8_t hour){
-    i2cStart();
-    i2cSend(eeprom_addr); // eeprom_addr | 2;
-    i2cSend(2);
-    uint8_t high, low;
-    high = (hour / 10) << 4;
-    low = hour % 10;
-    i2cSend(high | low);
+    i2cSend(eeprom_addr);
+    i2cSend(addr);
+    data = (((data) / 10) << 4) | ((data) % 10);
+    i2cSend(data);
     i2cStop();
 }
 
@@ -114,33 +90,48 @@ int main()
             scanf("%s", command);
             if(strcmp(command, "time") == 0){
                 uint8_t hours, minutes, seconds;
-                scanf("%"PRIu8" %"PRIu8" %"PRIu8, hours, minutes, seconds);
-                write_hour(hours);
-                write_min(minutes);
-                write_sec(seconds);
+                scanf("%"PRIu8" %"PRIu8" %"PRIu8, &hours, &minutes, &seconds);
+                write(2, hours);
+                write(1, minutes);
+                write(0, seconds);
             }
-            
+            else if(strcmp(command, "date") == 0){
+                uint8_t years, months, days;
+                scanf("%"PRIu8" %"PRIu8" %"PRIu8, &years, &months, &days);
+                write(6, years);
+                write(5, months);
+                write(4, days);
+            }
+            else{
+                printf("Invalid command. Type one of: time, date, set time, set date\r\n");
+            }
         }
         else if(strcmp(command, "time") == 0){
             uint8_t hours = read(2);
             uint8_t hours_low = hours & 0x0F;
-            hours = hours_low + (hours >> 4);
+            uint8_t hours_high = (hours >> 4) * 10;
+            hours = hours_low + hours_high;
             uint8_t minutes = read(1);
             uint8_t minutes_low = minutes & 0x0F;
-            minutes = minutes_low + (minutes >> 4);
+            uint8_t minutes_high = (minutes >> 4) * 10;
+            minutes = minutes_low + minutes_high;
             uint8_t seconds = read(0);
             uint8_t seconds_low = seconds & 0x0F;
-            seconds = seconds_low + (seconds >> 4);
-            printf("%d:%d:%d", hours, minutes, seconds);
+            uint8_t second_high = (seconds >> 4) * 10;
+            seconds = seconds_low + second_high;
+            printf("%d:%d:%d\r\n", hours, minutes, seconds);
         }
         else if(strcmp(command, "date") == 0){
             uint8_t days = read(4);
-            days = days & 0x0F + (days >> 4);
+            days = days & 0x0F + ((days >> 4) & 0x3) * 10;
             uint8_t months = read(5);
-            months = months & 0x0F + (months >> 4);
+            months = (months & 0x0F) + ((months >> 4) & 0x1) * 10;
             uint8_t years = read(6);
-            years = years & 0x0F + (years >> 4);
-            printf("%d/%d/%d", days, months, years);
+            years = (years & 0x0F) + ((years >> 4) * 10);
+            printf("%d/%d/%d\r\n", days, months, years);
+        }
+        else{
+            printf("Invalid command. Type one of: time, date, set time, set date\r\n");
         }
     }
 }
