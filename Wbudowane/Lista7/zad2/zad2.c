@@ -119,13 +119,14 @@ int main()
     while(1) {
         scanf("%s", command);
         if(strcmp(command, "write") == 0){
-            // printf("write ");
+            printf("write ");
             scanf("%s", i8hex);
+            printf("%s\n\r", i8hex);
             write_len = hex2int(i8hex[1]) * 16 + hex2int(i8hex[2]);
             addr = hex2int(i8hex[3]) * 16 * 16 * 16 + hex2int(i8hex[4]) * 16 * 16 + hex2int(i8hex[5]) * 16 + hex2int(i8hex[6]);
             
             for(int i = 0; i < write_len; i++){
-                data[i] = hex2int(i8hex[9 + 2 * i]) * 16 + hex2int(i8hex[10 + 2 * i]);
+                data[i] = hex2int(i8hex[7 + 2 * i]) * 16 + hex2int(i8hex[8 + 2 * i]);
             }
 
             write(addr, write_len, data);
