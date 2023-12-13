@@ -9,8 +9,8 @@
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
 
-static void vBlinkLed(void* pvParameters);
-static void vReadNum(void* pvParameters);
+static void vBlinkLed(void* queue);
+static void vReadNum(void* queue);
 
 int uart_transmit(char c, FILE *stream);
 int uart_receive(FILE *stream);
@@ -51,14 +51,14 @@ int main(void)
     xTaskHandle serial_handle;
 
     // Create xQueue
-    QueueHandle_t xQueue = xQueueCreate(10, sizeof(int));
+    QueueHandle_t queue = xQueueCreate(10, sizeof(int));
 
     xTaskCreate
         (
          vReadNum,
          "blink",
          200,
-         (void *)xQueue,
+         (void *)queue,
          mainREAD_TASK_PRIORITY,
          &blink_handle
         );
@@ -68,7 +68,7 @@ int main(void)
          vBlinkLed,
          "serial",
          configMINIMAL_STACK_SIZE,
-         (void *)xQueue,
+         (void *)queue,
          mainLED_TASK_PRIORITY,
          &serial_handle
         );
@@ -88,8 +88,8 @@ static void vReadNum(void* xQueue) {
   int input;
   for ( ;; ) {
     scanf("%d", &input);
-    xQueueSend(queue, (void *)&input, 100);
-    printf("%d\r\n", input);
+    xQueueSend(queue, (void *)&input, 0);
+    printf("%d ms\r\n", input);
   }
 }
 
@@ -98,7 +98,7 @@ static void vBlinkLed(void* xQueue) {
   LED_DDR |= _BV(LED);
   while (1) {
     int num = 0;
-    if (xQueueReceive(queue, &num, 100)) {
+    if (xQueueReceive(queue, &num, 0)) {
       LED_PORT |= _BV(LED);
       vTaskDelay(num);
     }
