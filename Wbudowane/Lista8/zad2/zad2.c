@@ -57,7 +57,7 @@ int main(void)
         (
          vReadNum,
          "blink",
-         200,
+         configMINIMAL_STACK_SIZE,
          (void *)queue,
          mainREAD_TASK_PRIORITY,
          &blink_handle
