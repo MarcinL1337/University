@@ -23,13 +23,13 @@ uint8_t pds[8] = {PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7};
 
 
 #define mainLED_TASK_PRIORITY   2
-#define mainSERIAL_TASK_PRIORITY 1
+#define mainLED_BAR_TASK_PRIORITY 1
 
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
 
 static void vBlinkLed(void* pvParameters);
-static void vSerial(void* pvParameters);
+static void vLedBar(void* pvParameters);
 
 int uart_transmit(char c, FILE *stream);
 int uart_receive(FILE *stream);
@@ -78,11 +78,11 @@ int main(void)
 
     xTaskCreate
         (
-         vSerial,
+         vLedBar,
          "serial",
          configMINIMAL_STACK_SIZE,
          NULL,
-         mainSERIAL_TASK_PRIORITY,
+         mainLED_BAR_TASK_PRIORITY,
          &serial_handle
         );
 
@@ -120,7 +120,7 @@ static void vBlinkLed(void* pvParameters)
 }
 
 
-static void vSerial(void* pvParameters)
+static void vLedBar(void* pvParameters)
 {
     DDRD  = 0b11111111;
     while(1){
