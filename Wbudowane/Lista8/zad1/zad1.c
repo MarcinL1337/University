@@ -64,7 +64,7 @@ int main(void)
 {
     // Create task.
     xTaskHandle blink_handle;
-    xTaskHandle serial_handle;
+    xTaskHandle led_bar_handle;
 
     xTaskCreate
         (
@@ -79,11 +79,11 @@ int main(void)
     xTaskCreate
         (
          vLedBar,
-         "serial",
+         "led_bar",
          configMINIMAL_STACK_SIZE,
          NULL,
          mainLED_BAR_TASK_PRIORITY,
-         &serial_handle
+         &led_bar_handle
         );
 
     // Start scheduler.
