@@ -26,14 +26,11 @@ void uart_init()
   UCSR0C = _BV(UCSZ00) | _BV(UCSZ01);
 }
 
-
 // WCZYTYWANIE
 int uart_receive(FILE *stream){
   while (!(UCSR0A & _BV(RXC0)));
   return UDR0;
 }
-
-FILE uart_file;
 
 int hd44780_transmit(char data, FILE *stream)
 {
