@@ -8,9 +8,9 @@
 #define LED_DDR DDRB
 #define LED_PORT PORTB
 
-#define BTN PB0
-#define BTN_PIN PINB
-#define BTN_PORT PORTB
+#define BTN PA7
+#define BTN_PIN PINA
+#define BTN_PORT PORTA
 
 #define buffer_size 100
 

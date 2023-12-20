@@ -1,7 +1,5 @@
 #include <avr/io.h>
 #include <inttypes.h>
-
-#include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <util/delay.h>
@@ -13,13 +11,6 @@
 #define BTN PA7
 #define BTN_PIN PINA
 #define BTN_PORT PORTA
-
-
-void io_init(){
-  // pull-up
-  BTN_PORT |= _BV(BTN);
-  LED_DDR |= _BV(LED);
-}
 
 // inicjalizacja licznika 1
 void timer1_init(){
@@ -66,7 +57,9 @@ void spi_init()
 
 int main()
 {
-    io_init();
+    BTN_PORT |= _BV(BTN);
+    LED_DDR |= _BV(LED);
+    
     timer1_init();
     spi_init();
     set_sleep_mode(SLEEP_MODE_IDLE);

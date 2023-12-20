@@ -16,13 +16,6 @@
 #define BTN_PIN PIND
 #define BTN_PORT PORTD
 
-
-void io_init(){
-  // pull-up
-  BTN_PORT |= _BV(BTN);
-  LED_DDR |= _BV(LED);
-}
-
 // inicjalizacja UART
 void uart_init() {
   // ustaw baudrate
@@ -79,10 +72,12 @@ int main() {
   stdin = stdout = stderr = &uart_file;
   sei();
   SPI_SlaveInit();
-  io_init();
-  uint8_t data;
+  
+  BTN_PORT |= _BV(BTN);
+  LED_DDR |= _BV(LED);
+  
   while(1){
-    data = SPI_SlaveReceive();
+    uint8_t data = SPI_SlaveReceive();
     if (data) LED_PORT |=  _BV(LED);
     else      LED_PORT &= ~_BV(LED);
   }
