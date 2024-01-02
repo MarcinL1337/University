@@ -45,7 +45,6 @@ void shift_old_line(uint8_t length){
     putchar(old_line[i]);
     _delay_ms(5);
   }
-  // LCD_GoTo(0, 1);
 }
 
 FILE hd44780_file;
