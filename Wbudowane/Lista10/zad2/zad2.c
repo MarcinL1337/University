@@ -27,7 +27,6 @@ void progress_bar(uint8_t percent){
   uint16_t cur_progress = (percent * 100) / 80;
   printf("%.2d", cur_progress);
   putchar(0b00100101);
-  // printf("%c", 0b00100101);
 
   uint8_t new_x = percent / 6;
   uint8_t aux2 = percent % 6;
