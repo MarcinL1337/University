@@ -24,7 +24,7 @@ void adc_init() {
   ADMUX   = _BV(REFS0); // referencja AVcc, wejście ADC0
   DIDR0   = _BV(ADC0D); // wyłącz wejście cyfrowe na ADC0
   // częstotliwość zegara ADC 125 kHz (16 MHz / 128)
-  ADCSRA  = _BV(ADPS0) | _BV(ADPS1) | _BV(ADPS2); // preskaler 128
+  ADCSRA  = _BV(ADPS1); // preskaler 128
   ADCSRA |= _BV(ADEN); // włącz ADC
 }
 
@@ -34,7 +34,7 @@ int main() {
   while (1) {
     ADCSRA |= _BV(ADSC); // wykonaj konwersję
     while (!(ADCSRA & _BV(ADIF))); // czekaj na wynik
-    ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
+    ADCSRA |= _BV(ADIF); // wyczyść bit ADIF
     uint16_t v = ADC; // weź zmierzoną wartość (0..1023)
     OCR1A = 2 * v;
     _delay_ms(10);
