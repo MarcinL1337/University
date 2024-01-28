@@ -1,0 +1,17 @@
+.thumbnail img {
+  max-height: 300px;
+  min-height: 300px;
+}
+
+.thumbnail .description {
+  color: #575757;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.product-title {
+  min-height: 60px;
+}
