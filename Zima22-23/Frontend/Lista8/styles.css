@@ -1,0 +1,176 @@
+body
+{
+    background-color: black;
+}
+
+.container
+{
+    width: 1000px;
+    height: 800px;
+    background-color: #6434e7;
+    border-style: solid;
+    border-radius: 10px;
+    color: white;
+
+    margin: 0 auto;
+    margin-top: 80px;
+
+    display: grid;
+    grid-template-rows: 80px auto;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-areas: 
+    ". . header . ."
+    "list list info info info";
+}
+
+.header
+{
+    grid-area: header;
+    text-align: center;
+}
+
+.pokemon_info
+{
+    grid-area: info;
+    
+    margin-top: 20px;
+    text-align: center;
+    justify-items: center;
+    align-content: center;
+    justify-self: center;
+}
+
+.pokemon_types
+{
+    margin-top: 10px;
+    align-items: center;
+}
+
+.pokemon_description
+{
+    margin-top: 20px;
+    width: 300px;
+    height: auto;
+    max-height: 150px;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 3px;
+    font-size: 1.1rem;
+    overflow-y: auto;
+}
+
+.type
+{
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid white;
+    border-radius: 10px;
+    justify-self: center;
+}
+
+.pokemon_img
+{
+    justify-self: center;
+    width: 150px;
+    height: 150px;
+    border: 1px solid white;
+    border-radius: 200px;
+    background-color: white;
+}
+
+.pokemon_list
+{
+    grid-area: list;
+    margin-left: 20px;
+    overflow-y: auto;
+    font-size: 1.5rem;
+}
+
+.pokemon_name
+{
+    border: 1px solid white;
+    border-radius: 7px;
+    background-color: rgb(199, 129, 0);
+    margin: 10px;
+    padding: 5px;
+}
+
+.fire
+{
+    background-color: red;
+}
+
+.grass
+{
+    background-color: green;
+}
+
+.water
+{
+    background-color: blue;
+}
+
+.ice
+{
+    background-color: lightblue;
+}
+
+.electric
+{
+    background-color: gold;
+}
+
+.fighting
+{
+    background-color: darkred;
+}
+
+.flying
+{
+    background-color: skyblue;
+}
+
+.bug
+{
+    background-color: yellowgreen;
+}
+
+.ghost
+{
+    background-color: purple;
+}
+
+.rock
+{
+    background-color: sienna;
+}
+
+.ground
+{
+    background-color: burlywood;
+}
+
+.steel
+{
+    background-color: silver;
+}
+
+.psychic
+{
+    background-color: palevioletred;
+}
+
+.fairy
+{
+    background-color: pink;
+}
+
+.dragon
+{
+    background-color: teal;
+}
+
+.poison
+{
+    background-color: darkviolet;
+}

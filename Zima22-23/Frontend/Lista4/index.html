@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div class="form__wrapper">
+        <header class="main_header">
+            <h1 class="main_header__header">Contact us!</h1>
+        </header>
+
+        <form class="form">
+            <label for="name">Name (required):</label>
+            <input type="text" class="form__elem_name form__input" id="name" required minlength="3"/>
+
+            <label for="surname">Surname:</label>
+            <input type="text" class="form__elem_surname form__input" name="surname" id="surname" minlength="3"/>
+
+            <label for="email">Email (required):</label>
+            <input placeholder="marcin@gmail.com " type="text" class="form__elem_email form__input" name="email" id="email" value = "" required pattern="\S+@\S+\.\S+"/>
+
+            <label for="phone">Phone:</label>
+            <input placeholder="123456789" type="tel" class="form__elem_phone form__input" name="phone" id="phone" minlength="9" maxlength="9" pattern="^\d{9}$"/>
+
+            <label for="newsletter">Subscribe to the newsletter:</label>
+            <input type="checkbox" class="form__elem_newsletter" name="newsletter"/>
+
+            <label for="reason">Reason (required):</label>
+            <select class="form__elem form__select" name="reason" id="reason" required>
+                <option selected disabled hidden value="">--select an option--</option>
+                <option value="reason1" >Reason 1</option>
+                <option value="reason2" >Reason 2</option>
+                <option value="reason3" >Reason 3</option>
+                <option value="reason4" >Reason 4</option>
+                <option value="reason5" >Reason 5</option>
+            </select>
+
+            <label for="message">Message (required):</label>
+            <textarea class="form__elem form__textarea" name="message" required minlength="5"></textarea>
+
+            <button class="form__elem form__button" type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>

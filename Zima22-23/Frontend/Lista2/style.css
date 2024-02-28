@@ -1,0 +1,102 @@
+body
+{
+    font-family: "Times New Roman", Times, serif;
+}
+
+#first-section [id="first-box"]
+{
+    box-sizing: border-box;
+    width: 100%;
+    color: white;
+    width: 250px;
+    height: 150px;
+    margin: 20px;
+    padding: 15px;
+    background-color: #00FF0F;
+}
+
+#first-section [id="second-box"]
+{
+    box-sizing: border-box;
+    width: 100%;
+    color: white;
+    width: 250px;
+    height: 150px;
+    margin: 20px;
+    padding: 15px;
+    border: 10px dashed blue;
+}
+
+#first-section [id="third-box"]
+{
+    box-sizing: border-box;
+    width: 100%;
+    color: white;
+    width: 250px;
+    height: 150px;
+    margin: 20px;
+    padding: 15px;
+    background-color: #00FF0F;
+}
+
+.animal-list > li::marker
+{
+    color: red;
+}
+
+.animal-list > li > ol > li::marker
+{
+    color: green;
+}
+
+.animal-list > li > ul > li::marker
+{
+    color: blue;
+}
+
+#second-section .animal-list > li li:first-child
+{
+    color: turquoise;
+}
+
+#third-section .link
+{
+    color: #437bc4;
+    text-decoration: none;
+}
+
+#third-section .link:hover
+{
+    color: red;
+    text-decoration: underline;
+}
+
+#third-section .link:visited
+{
+    color: violet;
+}
+
+#third-section .link::before
+{
+    content: '🔗';
+    text-decoration: none;
+    display: inline-block;
+}
+
+#forth-section .image
+{
+    max-width: 1000px;
+    min-width: 400px;
+    width: 100%;
+    height: auto;
+}
+
+*
+{
+    font-size: 1rem;
+}
+
+* h2
+{
+    font-size: 1.8rem;
+}

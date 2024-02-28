@@ -1,0 +1,263 @@
+*
+{
+    font-size: clamp(1rem, 1.5vw, 2rem);
+}
+
+body
+{
+    background-color: #FBF5F5;
+    display: flex;
+    flex-direction: column;
+}
+
+.form
+{
+    margin: auto;
+}
+
+.form__wrapper
+{
+    background-color: white;
+    box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+
+.main_header
+{
+    text-align: center;
+    margin: auto;
+}
+
+.main_header__header
+{
+    font-size: 1.5rem;
+}
+
+.form__button
+{
+    color: white;
+    background-color: blue;
+    border: solid;
+    border-radius: 5px;
+    border-color: black;
+    height: 50px;
+    grid-area: but;
+}
+
+input:invalid
+{
+    border-color: rgb(202, 0, 0);
+}
+
+textarea:invalid
+{
+    border-color: rgb(202, 0, 0);
+}
+
+select:invalid
+{
+    border-color: rgb(202, 0, 0);
+}
+
+.form__elem_name
+{
+    grid-area: a;
+}
+
+.form__elem_surname
+{
+    grid-area: b;
+}
+
+.form__elem_email
+{
+    grid-area: c;
+}
+
+.form__elem_phone
+{
+    grid-area: d;
+}
+
+.form__elem_newsletter
+{
+    grid-area: e;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
+}
+
+.form__select
+{
+    grid-area: f;
+}
+
+.form__textarea
+{
+    grid-area: g;
+}
+
+label[for="name"]
+{
+    grid-area: al;
+}
+
+label[for="surname"]
+{
+    grid-area: bl;
+}
+
+label[for="email"]
+{
+    grid-area: cl;
+}
+
+label[for="phone"]
+{
+    grid-area: dl;
+}
+
+label[for="newsletter"]
+{
+    grid-area: el;
+}
+
+label[for="reason"]
+{
+    grid-area: fl;
+}
+
+label[for="message"]
+{
+    grid-area: gl;
+}
+
+label
+{
+    align-self: center;
+}
+
+@media (max-width: 550px)
+{
+    .form
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-auto-rows: minmax(2rem, auto);
+        gap: 0.5rem;
+        grid-template-areas:
+            "al"
+            "a"
+            "bl"
+            "b"
+            "cl"
+            "c"
+            "dl"
+            "d"
+            "el"
+            "e"
+            "fl"
+            "f"
+            "gl"
+            "g"
+            "but";
+    }
+
+    label[for="newsletter"]
+    {
+        justify-self: center;
+        align-self: center;
+    }
+
+    .form__textarea
+    {
+        height: 150px;
+    }
+}
+
+@media (min-width: 550px) and (max-width: 1000px)
+{
+    input
+    {
+        max-width: 100%;
+    }
+
+    .form
+    {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(2rem, auto);
+        gap: 1rem;
+        grid-template-areas: 
+            "al  .   bl  ."
+            "a   a   b   b"
+            "cl  .   dl  ."
+            "c   c   d   d"
+            "fl  .   .   ."
+            "f   f   f   f"
+            "gl  .   .   ."
+            "g   g   g   g"
+            "el  el  e   ."
+            "but but but but";
+    }
+
+    .form__elem_newsletter
+    {
+        justify-self: start;
+    }
+
+    label[for="newsletter"]
+    {
+        justify-self: end;
+    }
+
+    .form__textarea
+    {
+        height: 150px;
+    }
+}
+
+@media (min-width: 1000px)
+{
+    body
+    {
+        align-items: center;
+        text-align: center;
+    }
+
+    .form__wrapper
+    {
+        max-width: 90%;
+    }
+
+    .form
+    {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-auto-rows: minmax(2rem, auto);
+        gap: 2rem;
+        grid-template-areas:
+            "al a  a   bl  b  b"
+            "cl c  c   dl  d  d"
+            "gl g  g   g   g  g"
+            "el e  e   fl  f  f"
+            ".  but but but but .";
+    }
+
+    .form__textarea
+    {
+        height: 150px;
+    }
+}
+
+@media (pointer: coarse), (pointer: none)
+{
+    .form__select
+    {
+        height: 2rem;
+        width: 2rem;
+    }
+}

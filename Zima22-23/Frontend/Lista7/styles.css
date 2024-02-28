@@ -1,0 +1,94 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background-color: chocolate;
+}
+
+.container
+{
+    width: 550px;
+    min-height: 200px;
+    border: solid 2px white;
+}
+
+.header
+{
+    font-size: 1.5rem;
+    padding-top: 10px;
+}
+
+.new_elem
+{
+    padding: 10px;
+}
+
+.add_elem_button
+{
+    padding: 8.5px;
+    width: 25%;
+    /* float: left; */
+    text-align: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.del_elem_button
+{
+    width: 5%;
+    background-color: chocolate;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+input
+{
+    font-size: 1.2em;
+    margin: 0;
+    border: none;
+    width: 75%;
+    padding: 10px;
+    float: left;
+}
+
+.list_of_elems
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.list_of_elems li
+{
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px, 12px, 40px;
+    font-size: 1.2em;
+    background-color: rgb(167, 86, 28);
+}
+
+.list_of_elems li:nth-child(odd)
+{
+    background-color: rgb(197, 104, 37);
+}
+
+.list_of_elems:hover
+{
+    background-color: #777474;
+}
+
