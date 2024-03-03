@@ -31,8 +31,16 @@ int main(){
         std::string liczba_s;
         std::cin >> liczba_s;
 
-        int liczba = stoi(liczba_s);
-
-        std::cout << toRoman(liczba) << std::endl;
+        try{
+            int liczba = stoi(liczba_s);
+            if(liczba > 3999 or liczba < 1){
+                std::cout << "Podana liczba jest niezgodna ze specyfikacją." << std::endl;
+                continue;
+            }
+            std::cout << toRoman(liczba) << std::endl;
+        }
+        catch (std::invalid_argument const& ex){
+            std::cout << "std::invalid_argument::what(): " << ex.what() << '\n';
+        }
     }
 }
