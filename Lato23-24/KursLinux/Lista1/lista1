@@ -1,0 +1,99 @@
+Zad 2.
+- gedit ~/.bashrc
+- alias ll='ls -lAFbhv --color=always | less -XER'
+	LS:
+	- l : 
+	- A, --almost-all do not list implied . and ..
+	- F, --classify append indicator (one of */=>@|) to entries
+	- b, --escape print C-style escapes for nongraphic characters
+	-h, --human-readable with -l and -s, print sizes like 1K 234M 2G etc.
+	- v natural sort of (version) numbers within text
+	- --color[=WHEN] colorize the output; WHEN can be 'always' (default if omitted), 'auto', or 'never'; more info below
+	LESS:
+	- E or --QUIT-AT-EOF Causes less to automatically exit the first time it  reaches  end-of-file.
+	- R or --RAW-CONTROL-CHARS displays escape characters, but only ANSI ones. Doesn't make line errors like -r.
+	-X or --no-init Disables  sending  the termcap initialization and deinitialization strings to the terminal.   This  is  sometimes  desirable  if  the deinitialization  string does something unnecessary, like clearing the screen.
+
+- alias gentmp='echo -n "tmp-"; date +'%Y%m%d%H%M%S''
+
+- alias genpwd='cat /dev/urandom | tr -dc '3-9A-HJ-NP-Z' | head -c 5 ; echo'
+
+Zad 3.
+
+grep - pattern matching
+
+ciekawsze opcje: 
+	-E pozwala na podawanie regex'ów jako pattern 
+	-c zlicza wystąpienia patternu
+	-i case insensitive search
+	-R rekursywnie sprawdzaj wszystkie katalogi i podkatalogi w poszukiwaniu patternu
+	-F Interpret PATTERNS as fixed strings, not regular expressions.
+	
+basic concepts:
+	- A vertical bar separates alternatives. For example, gray|grey can match "gray" or "grey".
+	- Parentheses are used to define the scope and precedence of the operators (among other uses). For example, gray|grey and gr(a|e)y are equivalent patterns which both describe the set of "gray" or "grey".
+	- ? The question mark indicates zero or one occurrences of the preceding element. For example, colou?r matches both "color" and "colour".
+	- * The asterisk indicates zero or more occurrences of the preceding element. For example, ab*c matches "ac", "abc", "abbc", "abbbc", and so on.
+	- + The plus sign indicates one or more occurrences of the preceding element. For example, ab+c matches "abc", "abbc", "abbbc", and so on, but not "ac".
+	- {n} The preceding item is matched exactly n times.
+	- {min,} The preceding item is matched min or more times.
+	- {,max} The preceding item is matched up to max times.
+	- {min,max} The preceding item is matched at least min times, but not more than max times.
+	- Wildcard: The wildcard . matches any character. For example: 
+	a.b matches any string that contains an "a", and then any character and then "b".
+	a.*b matches any string that contains an "a", and then the character "b" at some later point.
+
+Zad. 4
+
+find - search for files in a directory hierarchy
+
+ciekawsze opcje:
+	-name pozwala podać pattern dla szukaneog pliku
+	-iname case insensitive -name
+	-P don't follow symlinks -> default behavior
+	-L follow symlinks
+	-maxdepth maks. głębokość szukania
+	-o or, przykład: find ~ ( -iname 'jpeg' -o -iname 'jpg' ), szukaj plików .jpg i .jpeg
+	-perm szukanie po uprawnieniach plików
+	
+Zad. 5
+
+Bazowy rename w ubuntu to nie ten perlowy. Aby zainstlaować perlowy trzeba zrobić:
+- cpan
+- install File::Rename
+
+Potem man rename pokazuje już perlowego rename'a.
+
+Przykład: rename -n 's/[.]png$/.txt/' *.png
+Zamienia rozszerzenia podanych plików z .png na .txt
+
+s/ -> Search and replace is performed using s/regex/replacement/modifiers.
+
+https://perldoc.perl.org/perlrequick#Search-and-replace
+
+Zad. 7
+
+- sudo find / -type f -name ".*\.so\(\.[0-9]\+\)\?$"
+- sudo find / -lname ".*\.so\(\.[0-9]\+\)\?$"
+- sudo find / -type f -name ".*\.so\(\.[0-9]\+\)\?$"  | du -ch * | tail -1
+- 
+
+Zad. 10
+
+Polecenie służące do edytowania strumienia tekstu (plików tekstowych lub inputów z pipeline'ów)
+
+Przykład użycia: sed 's/old_string/new_string/' filename.txt
+Znajdź pierwsze wystąpienie stringa old_string i zamień je na new_string w pliku filename.txt
+
+dodanie flagi g spowoduje zamianę wszystkich wystąpień, a nie tylko pierwszego: sed 's/old_string/new_string/g' filename.txt
+
+Zamiast g można wpisać liczbę, np. 2 wtedy zamieni tylko 2 wystąpienia.
+
+Flaga i ignoruje wielkość liter w patternie.
+
+sed 'i,j edytuje plik w liniach od i do j.
+
+sed '5d' filename.txt usuwa linie i w pliku filename.txt
+Analogicznie sed 5,10d usuwa linie od 5 do 10
+
+sed 'i,$d' usuwa wszystkie linie od linii i.
