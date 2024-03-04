@@ -1,0 +1,11 @@
+D:\UWr\DotNet\Lista1\Solution1\ClassLibrary2\bin\Debug\net8.0\ClassLibrary2.deps.json
+D:\UWr\DotNet\Lista1\Solution1\ClassLibrary2\bin\Debug\net8.0\ClassLibrary2.dll
+D:\UWr\DotNet\Lista1\Solution1\ClassLibrary2\bin\Debug\net8.0\ClassLibrary2.pdb
+D:\UWr\DotNet\Lista1\Solution1\ClassLibrary2\obj\Debug\net8.0\ClassLibrary2.GeneratedMSBuildEditorConfig.editorconfig
+D:\UWr\DotNet\Lista1\Solution1\ClassLibrary2\obj\Debug\net8.0\ClassLibrary2.AssemblyInfoInputs.cache
+D:\UWr\DotNet\Lista1\Solution1\ClassLibrary2\obj\Debug\net8.0\ClassLibrary2.AssemblyInfo.cs
+D:\UWr\DotNet\Lista1\Solution1\ClassLibrary2\obj\Debug\net8.0\ClassLibrary2.csproj.CoreCompileInputs.cache
+D:\UWr\DotNet\Lista1\Solution1\ClassLibrary2\obj\Debug\net8.0\ClassLibrary2.dll
+D:\UWr\DotNet\Lista1\Solution1\ClassLibrary2\obj\Debug\net8.0\refint\ClassLibrary2.dll
+D:\UWr\DotNet\Lista1\Solution1\ClassLibrary2\obj\Debug\net8.0\ClassLibrary2.pdb
+D:\UWr\DotNet\Lista1\Solution1\ClassLibrary2\obj\Debug\net8.0\ref\ClassLibrary2.dll
