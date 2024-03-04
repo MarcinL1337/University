@@ -1,0 +1,16 @@
+D:\UWr\DotNet\Lista1\Primes\Primes\bin\Debug\net8.0\Primes.exe
+D:\UWr\DotNet\Lista1\Primes\Primes\bin\Debug\net8.0\Primes.deps.json
+D:\UWr\DotNet\Lista1\Primes\Primes\bin\Debug\net8.0\Primes.runtimeconfig.json
+D:\UWr\DotNet\Lista1\Primes\Primes\bin\Debug\net8.0\Primes.dll
+D:\UWr\DotNet\Lista1\Primes\Primes\bin\Debug\net8.0\Primes.pdb
+D:\UWr\DotNet\Lista1\Primes\Primes\obj\Debug\net8.0\Primes.GeneratedMSBuildEditorConfig.editorconfig
+D:\UWr\DotNet\Lista1\Primes\Primes\obj\Debug\net8.0\Primes.AssemblyInfoInputs.cache
+D:\UWr\DotNet\Lista1\Primes\Primes\obj\Debug\net8.0\Primes.AssemblyInfo.cs
+D:\UWr\DotNet\Lista1\Primes\Primes\obj\Debug\net8.0\Primes.csproj.CoreCompileInputs.cache
+D:\UWr\DotNet\Lista1\Primes\Primes\obj\Debug\net8.0\Primes.dll
+D:\UWr\DotNet\Lista1\Primes\Primes\obj\Debug\net8.0\refint\Primes.dll
+D:\UWr\DotNet\Lista1\Primes\Primes\obj\Debug\net8.0\Primes.pdb
+D:\UWr\DotNet\Lista1\Primes\Primes\obj\Debug\net8.0\Primes.genruntimeconfig.cache
+D:\UWr\DotNet\Lista1\Primes\Primes\obj\Debug\net8.0\ref\Primes.dll
+D:\UWr\DotNet\Lista1\Primes\Primes\bin\Debug\net8.0\Primes.xml
+D:\UWr\DotNet\Lista1\Primes\Primes\obj\Debug\net8.0\Primes.xml

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primes</name>
+    </assembly>
+    <members>
+        <member name="T:Program">
+            <summary>
+            Metoda sprawdzająca, czy warunek z zadania zachodzi
+            </summary>
+            /// <param name="n">Argumenty będący liczbą</param>
+        </member>
+    </members>
+</doc>
