@@ -25,14 +25,10 @@ std::string toRoman(int liczba){
     return res;
 }
 
-int main(){
-    for(;;){
-        std::cout << "Podaj liczbę w zapisie arabskim z zakresu od 1 do 3999" << std::endl;
-        std::string liczba_s;
-        std::cin >> liczba_s;
-
+int main(int argc, char **argv){
+    for(int i=1; i < argc; i++){
         try{
-            int liczba = stoi(liczba_s);
+            int liczba = std::stoi(argv[i]);
             if(liczba > 3999 or liczba < 1){
                 std::cout << "Podana liczba jest niezgodna ze specyfikacją." << std::endl;
                 continue;
