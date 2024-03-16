@@ -1,5 +1,9 @@
 {
   "files.associations": {
-    "ostream": "cpp"
-  }
+    "ostream": "cpp",
+    "ip.h": "c",
+    "stdlib.h": "c",
+    "ip_icmp.h": "c"
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }
