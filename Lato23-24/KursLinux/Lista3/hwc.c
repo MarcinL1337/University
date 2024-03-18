@@ -5,17 +5,12 @@
 #include <getopt.h>
 #include <stdbool.h>
 
-int is_colorizable() {
-	// Is the program outputting to terminal? (file descriptor = 1)
-	return isatty(1) ? true : false;
-}
-
 void print_output(char *greeting, char *name, char *color, int capitalize) {
 	if (capitalize)
 		name[0] = toupper(name[0]);
 
 	printf("%s ", greeting);
-	if (!strcmp(color, "always") || (!strcmp(color, "auto") && is_colorizable()))
+	if (!strcmp(color, "always") || (!strcmp(color, "auto") && isatty(1))) // Is the program outputting to terminal?
 		printf("\033[0;34m");
 
 	printf("%s\033[0m!\n", name);
