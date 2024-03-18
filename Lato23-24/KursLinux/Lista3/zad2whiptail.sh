@@ -13,7 +13,7 @@ while read -r line; do
 	((++index))
 done < <(find music/ -name *.mp3)
 
-CHOICE=$(whiptail --menu "Choose a song to play" 25 78 16 "${arr[@]}" 3>&1 1>&2 2>&3)
+CHOICE=$(whiptail --menu "Choose a song to play" 25 76 16 "${arr[@]}" 3>&1 1>&2 2>&3)
 
 if [ -z "$CHOICE" ]; then
 	clear

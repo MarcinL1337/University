@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # find all .mp3 files in music directory
 iter=0
 index=1
@@ -12,12 +14,12 @@ while read -r line; do
 done < <(find music/ -name *.mp3)
 
 
-while CHOICE=$(zenity --title="Choose a song to play" --text="dupa" --list --column="Song number" --column="Song name" --width=600 --height=400 "${arr[@]}"); do
+while CHOICE=$(zenity --title="Choose a song to play" --list --column="Song number" --column="Song name" --width=600 --height=400 "${arr[@]}"); do
     
     if zenity --question --text="Are you sure you want to play this song?"; then
     	mpg123 --quiet "${paths[((CHOICE-1))]}"
     fi
 
 
-done > /dev/null 2>&1
+done
 

@@ -9,11 +9,10 @@ void print_output(char *greeting, char *name, char *color, int capitalize) {
 	if (capitalize)
 		name[0] = toupper(name[0]);
 
-	printf("%s ", greeting);
-	if (!strcmp(color, "always") || (!strcmp(color, "auto") && isatty(1))) // Is the program outputting to terminal?
-		printf("\033[0;34m");
+	if (!strcmp(color, "always") || (!strcmp(color, "auto") && isatty(1)))
+		printf("\033[1;32m");
 
-	printf("%s\033[0m!\n", name);
+	printf("%s %s\033[0m\n", greeting, name);
 }
 
 int main(int argc, char *argv[]) {
@@ -29,7 +28,7 @@ int main(int argc, char *argv[]) {
 	static int capitalize = false;
 	static char *greeting = "Hello,";
 	static char *color = "never";
-	static bool print_extra_world = false;
+	static bool helloworld = false;
 
 	while (true) {
 		int option_index = 0;
@@ -42,18 +41,17 @@ int main(int argc, char *argv[]) {
 			case 'c': capitalize = true; break;
 			case 'g': greeting = optarg; break;
 			case 'x': color = optarg; break;
-			case 'w': print_extra_world = true; break;
-			case 'v': printf("hwb version 0.01 created by Tomasz Woszczynski\n"); break;
+			case 'w': helloworld = true; break;
+			case 'v': printf("hwb version 0.01\n"); break;
 			case 'h': 
 				printf("Usage: %s <options> <arguments>\n", argv[0]); 
 				printf("Options: \n");
-				printf("-c, --capitalize            = capitalize first letter of string\n");
-				printf("-g, --greeting              = substitute 'Hello' for given text\n");
-				printf("--color[=auto|always|never] = colorize the output\n");
-				printf("-w, --word                  = print extra 'Hello, world!'\n");
-				printf("-v, --verison               = print version\n");
-				printf("-h, --help                  = print help\n");
-				printf("Example: %s -cg xx abc PRINTS xx Abc!\n", argv[0]);
+				printf("	-c, --capitalize            = capitalize first letter of string\n");
+				printf("	-g, --greeting              = substitute 'Hello' for given text\n");
+				printf("	--color[=auto|always|never] = colorize the output\n");
+				printf("	-w, --world                 = print extra 'Hello, world!'\n");
+				printf("	-v, --verison               = print version\n");
+				printf("	-h, --help                  = print help\n");
 				break;
 			default:  printf("%s", optarg);
 		}
@@ -62,7 +60,7 @@ int main(int argc, char *argv[]) {
 	while (optind < argc) 
 		print_output(greeting, argv[optind++], color, capitalize);
 
-	if (print_extra_world)
+	if (helloworld)
 		print_output(greeting, "world", color, capitalize);
 
 	return 0;

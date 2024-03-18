@@ -14,19 +14,16 @@ function print_help {
     echo "  --color=[never|auto|always]  Colorize names (never, auto, always)"
     echo "  -g text, --greeting=text     Replace the word 'Hello' with specified text"
     echo "  -h, --help                   Display this help message"
-    echo "  -v, --version                Display program name, version, and copyright"
+    echo "  -v, --version                Display program name, version"
     echo "  -w, --world                  Print 'Hello, world!'"
 }
 
 
 function print_version {
     echo "hwb version 0.1"
-    echo "Copyright (c) 2024 Marcin Linkiewicz"
 }
 
-#-o krótkie flagi
-#--long długie flagi
-#: argument po fladze
+
 ARGS=$(getopt -o c,g:,h,v,w --long capitalize,color:,greeting:,help,version,world -n "$0" -- "$@")
 eval set -- "$ARGS"
 while true; do
@@ -68,7 +65,6 @@ function print_greeting {
     fi
 }
 
-# ______________MAIN_________________
 
 for arg do
     print_greeting "$arg"
