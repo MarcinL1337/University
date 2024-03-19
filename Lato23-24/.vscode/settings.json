@@ -3,7 +3,9 @@
     "ostream": "cpp",
     "ip.h": "c",
     "stdlib.h": "c",
-    "ip_icmp.h": "c"
+    "ip_icmp.h": "c",
+    "strings.h": "c",
+    "socket.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

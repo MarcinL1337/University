@@ -8,12 +8,14 @@ void print_as_bytes (unsigned char* buff, ssize_t length)
 }
 
 
-int receive(int id, int ttl, int sock_fd)
+int receive(int id, int ttl, int seq, int sock_fd, char *sender_ip)
 {
 	struct sockaddr_in sender;
 	socklen_t sender_len = sizeof(sender);
 	u_int8_t buffer[IP_MAXPACKET];
-	ssize_t packet_len = recvfrom (sock_fd, buffer, IP_MAXPACKET, 0, (struct sockaddr*)&sender, &sender_len);
+	fprintf(stderr, "receive 1\n");
+	ssize_t packet_len = recvfrom(sock_fd, buffer, IP_MAXPACKET, 0, (struct sockaddr*)&sender, &sender_len);
+	fprintf(stderr, "receive 2\n");
 	
 	
 	if (packet_len < 0) {
@@ -23,20 +25,29 @@ int receive(int id, int ttl, int sock_fd)
 	
 	char sender_ip_str[20]; 
 	inet_ntop(AF_INET, &(sender.sin_addr), sender_ip_str, sizeof(sender_ip_str));
-	printf ("Received IP packet with ICMP content from: %s\n", sender_ip_str);
+	printf ("IP packet with ICMP content from: %s\n", sender_ip_str);
 
 	struct ip* ip_header = (struct ip*) buffer;
 	u_int8_t* icmp_packet = buffer + 4 * ip_header->ip_hl;
-	struct icmphdr *icmp_header = (struct icmphdr*)icmp_packet;
+	// struct icmphdr *icmp_header = (struct icmphdr*)icmp_packet;
+	struct icmp *icmp_header = (struct icmp*)icmp_packet;
+	
+	if(icmp_header->icmp_type == ICMP_ECHOREPLY && 
+	   seq == icmp_header->icmp_hun.ih_idseq.icd_seq && 
+	   id == icmp_header->icmp_hun.ih_idseq.icd_id){
 
-	if(icmp_header->type == ICMP_ECHOREPLY && ttl == icmp_header->un.echo.sequence && id == icmp_header->un.echo.id){
+		strcpy(sender_ip, sender_ip_str);
 		return 2;
 	}
-	else if(icmp_header->type == ICMP_TIME_EXCEEDED){
+	else if(icmp_header->icmp_type == ICMP_TIME_EXCEEDED){
 		icmp_packet += 8;
 		icmp_packet += 4 * ((struct ip*) icmp_packet)->ip_hl;
-		struct icmphdr *icmp_header_time_exceeded = (struct icmphrd*)icmp_packet;
-		if(ttl == icmp_header_time_exceeded->un.echo.sequence && id == icmp_header_time_exceeded->un.echo.id){
+		// struct icmphdr *icmp_header_time_exceeded = (struct icmphdr*)icmp_packet;
+		struct icmp *icmp_header_time_exceeded = (struct icmp*)icmp_packet;
+		if(seq == icmp_header->icmp_hun.ih_idseq.icd_seq && 
+		   id == icmp_header->icmp_hun.ih_idseq.icd_id){
+			fprintf(stderr, "guwno\n");
+			strcpy(sender_ip, sender_ip_str);
 			return 3;
 		}
 	}
@@ -44,4 +55,6 @@ int receive(int id, int ttl, int sock_fd)
 		fprintf(stderr, "Unexpected error\n");
 		return EXIT_FAILURE;
 	}
+
+	return EXIT_FAILURE;
 }

@@ -11,9 +11,9 @@
 #include <unistd.h>
 
 
-u_int8_t ttl_max = 30;
+static u_int8_t ttl_max = 30;
 
 
 u_int16_t compute_icmp_checksum(const void *buff, int length);
-void initHeader(struct icmphdr *header, int id, int seq);
-void sendp(int id, int seq, int sock_fd, struct sockaddr_in *recipient);
+struct icmp initHeader(int id, int seq);
+int sendp(int id, int ttl, int seq, int sock_fd, struct sockaddr_in *recipient);

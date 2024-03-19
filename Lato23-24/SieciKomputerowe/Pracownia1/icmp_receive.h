@@ -9,9 +9,8 @@
 #include <stdio.h>
 #include <assert.h>
 #include <unistd.h>
-#include <poll.h>
 #include <time.h>
 
 
 void print_as_bytes(unsigned char* buff, ssize_t length);
-int receive(int id, int ttl, int sock_fd);
+int receive(int id, int ttl, int seq, int sock_fd, char *sender_ip);
