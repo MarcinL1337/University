@@ -30,7 +30,7 @@ class odcinek {
         punkt getP2();
         void move(double x, double y);
         void obrot(punkt a, double kat);
-        double length();
+        double dlugosc();
         bool czyNalezy(punkt a);
         void print();
 };
@@ -48,5 +48,8 @@ class trojkat {
         punkt getP3();
         void move(double x, double y);
         void obrot(punkt a, double kat);
+        double pole();
+        double obwod();
+        bool czyPunktNalezy(punkt a);
         void print();
 };

@@ -1,4 +1,5 @@
 #include "figury.hpp"
+#include "globals.hpp"
 
 
 punkt::punkt(){
@@ -60,8 +61,8 @@ odcinek::odcinek(punkt p1, punkt p2){
 
 
 odcinek::odcinek(const odcinek& o){
-    this.p1 = o.p1;
-    this.p2 = o.p2;
+    this->p1 = o.p1;
+    this->p2 = o.p2;
 }
 
 
@@ -97,7 +98,7 @@ void odcinek::obrot(punkt a, double kat){
 }
 
 
-double odcinek::length(){
+double odcinek::dlugosc(){
     return sqrt(pow(this->getP2().getX() - this->getP1().getX(), 2) + 
                 pow(this->getP2().getY() - this->getP1().getY(), 2));
 }
@@ -206,6 +207,35 @@ void trojkat::obrot(punkt a, double kat){
 }
 
 
+double trojkat::pole(){
+    double obw = this->obwod() / 2;
+    double a = odleglosc(this->p1, this->p2);
+    double b = odleglosc(this->p2, this->p3);
+    double c = odleglosc(this->p3, this->p1);
+
+    return sqrt(obw * (obw - a) * (obw - b) * (obw - c));
+}
+
+
+double trojkat::obwod(){
+    return  odleglosc(this->p1, this->p2) + 
+            odleglosc(this->p2, this->p3) + 
+            odleglosc(this->p3, this->p1);
+}
+
+
+bool trojkat::czyPunktNalezy(punkt a){
+    double pole1 = this->pole();
+    double pole2 = poleTrojkata(this->p1, this->p2, a);
+    double pole3 = poleTrojkata(this->p1, this->p3, a);
+    double pole4 = poleTrojkata(this->p2, this->p3, a);
+
+    if(std::abs(pole1 - (pole2 + pole3 + pole4)) <= 1e-9)
+        return true;
+    return false;
+}
+
+
 void trojkat::print(){
     std::cout << "p1 = "; this->p1.print();
     std::cout << "p2 = "; this->p2.print();
@@ -240,6 +270,11 @@ int main(int argc, char **argv){
     std::cout << std::endl << "punkt.print() obrot" << std::endl << std::endl;
     std::cout << "p1 "; p1.print();
 
+    std::cout << std::endl << "Odleglosc między punktami (1, 1) a (2, 3)";
+    std::cout << " wynosi " << odleglosc(punkt(1,1), punkt(2,3)) << std::endl << std::endl;
+
+
+
 
     // ========================ODCINEK========================
 
@@ -252,7 +287,7 @@ int main(int argc, char **argv){
     std::cout << std::endl << "odcinek.print() move" << std::endl << std::endl;
     o1.print();
 
-    std::cout << std::endl << "długość odcinka o1 wynosi: " << o1.length() << std::endl << std::endl;
+    std::cout << std::endl << "długość odcinka o1 wynosi: " << o1.dlugosc() << std::endl << std::endl;
 
 
     odcinek o2(punkt(2, 3), punkt(4, 5));
@@ -264,15 +299,40 @@ int main(int argc, char **argv){
     std::cout << std::endl << "odcinek.print() obrot" << std::endl << std::endl;
     o1.print();
 
+    if(czyProstopoadle(odcinek(punkt(0, 0), punkt(2, 2)),
+                       odcinek(punkt(-1, -1),  punkt(1, 1))));
+        std::cout << std::endl << "Te dwa odcinki są równoległe!" << std::endl << std::endl;
 
     // ========================TROJKAT========================
 
 
-    trojkat t1(p1, p2, p3);
+    punkt a(0, 0);
+    punkt b(4, 0);
+    punkt c(4, 5);
+
+    trojkat t1(a, b, c);
     std::cout << std::endl << "trojkat.print()" << std::endl << std::endl;
     t1.print();
     
     t1.move(3, 3);
     std::cout << std::endl << "trojkat.print() move" << std::endl << std::endl;
     t1.print();
+
+    if(t1.czyPunktNalezy(punkt(4,3)))
+        std::cout << "punkt (4, 3) należy do trójkąta t1!" << std::endl << std::endl;
+
+    std::cout << "obwód t1 wynosi: " <<  t1.obwod() << std::endl << std::endl;
+
+    std::cout << "pole t1 wynosi: " <<  t1.pole() << std::endl << std::endl;
+
+    t1.move(-3, -3);
+
+    trojkat t2(punkt(1, 0), punkt(3, 0), punkt(3, 1));
+
+    if(czyTrojkatWTrojkacie(t1, t2))
+        std::cout << "trojkat t2 jest w trojkacie t1!" << std::endl << std::endl;
+
+    trojkat t3(punkt(1, 0), punkt(100, 100), punkt(-13, 10));
+    if(czyTrojkatyPrzecinaja(t1, t3))
+        std::cout << std::endl << "trojkaty t1 i t3 się przecinają!" << std::endl << std::endl;
 }
