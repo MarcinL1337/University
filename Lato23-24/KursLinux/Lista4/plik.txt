@@ -1,0 +1,189 @@
+restart_syscall(<... resuming interrupted read ...>) = 1
+read(3, "\1\0\0\0\0\0\0\0", 16)         = 8
+statx(AT_FDCWD, "/home/marcin/University/Lato23-24/KursLinux/Lista4/plik.txt", AT_STATX_SYNC_AS_STAT|AT_SYMLINK_NOFOLLOW|AT_NO_AUTOMOUNT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=250, ...}) = 0
+statx(AT_FDCWD, "/home/marcin/University/Lato23-24/KursLinux/Lista4/plik.txt", AT_STATX_SYNC_AS_STAT|AT_SYMLINK_NOFOLLOW|AT_NO_AUTOMOUNT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=498, ...}) = 0
+openat(AT_FDCWD, "/home/marcin/University/Lato23-24/KursLinux/Lista4/.hidden", O_RDONLY) = -1 ENOENT (No such file or directory)
+write(4, "\1\0\0\0\0\0\0\0", 8)         = 8
+futex(0x57b3e8fd7fd0, FUTEX_WAKE_PRIVATE, 1) = 1
+newfstatat(AT_FDCWD, "/home/marcin/.local/share/mime/mime.cache", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.local/share/mime/globs", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.local/share/mime/magic", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/mime/mime.cache", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/mime/globs", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/mime/magic", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/mime/mime.cache", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/mime/globs", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/mime/magic", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/mime/mime.cache", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/mime/globs", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/mime/magic", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/mime/mime.cache", {st_mode=S_IFREG|0644, st_size=151100, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/mime/mime.cache", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/mime/globs", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/mime/magic", 0x7fff332769c0, 0) = -1 ENOENT (No such file or directory)
+statx(AT_FDCWD, "/home/marcin/University/Lato23-24/KursLinux/Lista4/plik.txt", AT_STATX_SYNC_AS_STAT|AT_SYMLINK_NOFOLLOW|AT_NO_AUTOMOUNT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=2809, ...}) = 0
+newfstatat(AT_FDCWD, "/home/marcin/.local/share/icons/Yaru-purple", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.icons/Yaru-purple", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/icons/Yaru-purple", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/icons/Yaru-purple", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/icons/Yaru-purple", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/icons/Yaru-purple", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/icons/Yaru-purple", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/pixmaps/Yaru-purple", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/pixmaps/Yaru-purple", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/pixmaps/Yaru-purple", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/pixmaps/Yaru-purple", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/pixmaps/Yaru-purple", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.local/share/icons/Yaru", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.icons/Yaru", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/icons/Yaru", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/icons/Yaru", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/icons/Yaru", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/icons/Yaru", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/icons/Yaru", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/pixmaps/Yaru", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/pixmaps/Yaru", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/pixmaps/Yaru", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/pixmaps/Yaru", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/pixmaps/Yaru", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.local/share/icons/Humanity", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.icons/Humanity", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/icons/Humanity", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/icons/Humanity", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/icons/Humanity", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/icons/Humanity", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/icons/Humanity", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/pixmaps/Humanity", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/pixmaps/Humanity", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/pixmaps/Humanity", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/pixmaps/Humanity", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/pixmaps/Humanity", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.local/share/icons/Adwaita", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.icons/Adwaita", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/icons/Adwaita", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/icons/Adwaita", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/icons/Adwaita", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/icons/Adwaita", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/icons/Adwaita", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/pixmaps/Adwaita", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/pixmaps/Adwaita", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/pixmaps/Adwaita", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/pixmaps/Adwaita", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/pixmaps/Adwaita", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.local/share/icons/hicolor", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.icons/hicolor", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/icons/hicolor", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/icons/hicolor", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/icons/hicolor", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/icons/hicolor", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/icons/hicolor", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/pixmaps/hicolor", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/pixmaps/hicolor", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/pixmaps/hicolor", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/pixmaps/hicolor", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/pixmaps/hicolor", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.local/share/icons/gnome", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.icons/gnome", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/icons/gnome", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/icons/gnome", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/icons/gnome", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/icons/gnome", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/icons/gnome", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/pixmaps/gnome", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/pixmaps/gnome", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/pixmaps/gnome", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/pixmaps/gnome", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/pixmaps/gnome", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.local/share/icons", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/marcin/.icons", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/icons", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/icons", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/icons", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/icons", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/icons", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/share/ubuntu/pixmaps", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/gnome/pixmaps", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/share/pixmaps", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/pixmaps", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/var/lib/snapd/desktop/pixmaps", 0x7fff33278d80, 0) = -1 ENOENT (No such file or directory)
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 797) = 0 (Timeout)
+futex(0x57b3e9a84700, FUTEX_WAIT_PRIVATE, 2, NULL) = -1 EAGAIN (Resource temporarily unavailable)
+futex(0x57b3e9a84700, FUTEX_WAKE_PRIVATE, 1) = 0
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 2000) = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\1\0\0\0\0\0\0\0", 16)         = 8
+futex(0x57b3e8fd1e80, FUTEX_WAKE_PRIVATE, 1) = 1
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 700) = 0 (Timeout)
+futex(0x57b3e9a84700, FUTEX_WAIT_PRIVATE, 2, NULL) = -1 EAGAIN (Resource temporarily unavailable)
+futex(0x57b3e9a84700, FUTEX_WAKE_PRIVATE, 1) = 0
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 2000) = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\1\0\0\0\0\0\0\0", 16)         = 8
+futex(0x57b3e8fd1e80, FUTEX_WAKE_PRIVATE, 1) = 1
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 700) = 0 (Timeout)
+futex(0x57b3e8fd1e80, FUTEX_WAKE_PRIVATE, 1) = 0
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 2000) = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\1\0\0\0\0\0\0\0", 16)         = 8
+futex(0x57b3e8fd1e80, FUTEX_WAKE_PRIVATE, 1) = 1
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 700) = 0 (Timeout)
+futex(0x57b3e8fd1e80, FUTEX_WAKE_PRIVATE, 1) = 0
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 1742) = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\1\0\0\0\0\0\0\0", 16)         = 8
+futex(0x57b3e8fd1e80, FUTEX_WAKE_PRIVATE, 1) = 1
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 700) = 0 (Timeout)
+futex(0x57b3e9a84700, FUTEX_WAIT_PRIVATE, 2, NULL) = -1 EAGAIN (Resource temporarily unavailable)
+futex(0x57b3e9a84700, FUTEX_WAKE_PRIVATE, 1) = 0
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 940) = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\1\0\0\0\0\0\0\0", 16)         = 8
+futex(0x57b3e8fd1e80, FUTEX_WAKE_PRIVATE, 1) = 1
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 700) = 0 (Timeout)
+futex(0x57b3e8fd1e80, FUTEX_WAKE_PRIVATE, 1) = 0
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 139) = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\1\0\0\0\0\0\0\0", 16)         = 8
+futex(0x57b3e8fd1e80, FUTEX_WAKE_PRIVATE, 1) = 1
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 39) = 0 (Timeout)
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 661) = 0 (Timeout)
+futex(0x57b3e9a84700, FUTEX_WAIT_PRIVATE, 2, NULL) = -1 EAGAIN (Resource temporarily unavailable)
+futex(0x57b3e9a84700, FUTEX_WAKE_PRIVATE, 1) = 0
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 2000) = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\1\0\0\0\0\0\0\0", 16)         = 8
+futex(0x57b3e8fd1e80, FUTEX_WAKE_PRIVATE, 1) = 1
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 700) = 0 (Timeout)
+futex(0x57b3e9a84700, FUTEX_WAIT_PRIVATE, 2, NULL) = -1 EAGAIN (Resource temporarily unavailable)
+futex(0x57b3e9a84700, FUTEX_WAKE_PRIVATE, 1) = 0
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 2000) = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\1\0\0\0\0\0\0\0", 16)         = 8
+futex(0x57b3e8fd1e80, FUTEX_WAKE_PRIVATE, 1) = 1
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 700) = 0 (Timeout)
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 2000) = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\1\0\0\0\0\0\0\0", 16)         = 8
+futex(0x57b3e8fd1e80, FUTEX_WAKE_PRIVATE, 1) = 1
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 700) = 0 (Timeout)
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 2000) = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\1\0\0\0\0\0\0\0", 16)         = 8
+futex(0x57b3e8fd1e80, FUTEX_WAKE_PRIVATE, 1) = 1
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 700) = 1 ([{fd=7, revents=POLLIN}])
+recvmsg(7, {msg_name=NULL, msg_namelen=0, msg_iov=[{iov_base="U\2\316\225\331Q\201\0\3\4\4\0\0\0\0\0\0\0\0\4\4\4\4\4\0\0\3\37%\2\0\0", iov_len=4096}], msg_iovlen=1, msg_controllen=0, msg_flags=0}, 0) = 32
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+recvmsg(7, {msg_namelen=0}, 0)          = -1 EAGAIN (Resource temporarily unavailable)
+poll([{fd=3, events=POLLIN}, {fd=7, events=POLLIN}, {fd=8, events=POLLIN}], 3, 626 <detached ...>

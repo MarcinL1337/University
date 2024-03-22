@@ -1,0 +1,38 @@
+HOSTNAME(5) - Local hostname configuration file
+	- The /etc/hostname file configures the name of the local system.
+	
+
+MACHINE-ID(5) - Local machine ID configuration file
+	- The /etc/machine-id file contains the unique machine ID of the local system that is set during installation or boot.
+	
+	
+OS-RELEASE(5) - Operating system identification
+	- The /etc/os-release and /usr/lib/os-release files contain operating system identification data.
+	
+	
+
+
+HOSTNAME(1) - output or change current hostname
+	options:
+		-i: Display  the  network  address(es) of the host name.
+		q
+
+HOSTNAMECTL(1) - hostnamectl may be used to query and change the system hostname and related settings.
+
+UUID(1) - The UUID library is used to generate unique identifiers for objects that may be accessible the local system.
+	options:
+		-o: write to file instead of stdout
+		-F: format
+
+UUIDGEN(1) - create a new UUID value
+
+DBUS-UUIDGEN(1) - The dbus-uuidgen command generates or reads a universally unique ID.
+
+UNAME(1) - print system information
+
+LSB_RELEASE(1) - The lsb_release command provides certain LSB (Linux Standard Base) and distribution-specific information.
+
+Niektóre sposoby identyfikacji Linuksa:
+* uname -a
+* hostnamectl
+* lsb_release -a

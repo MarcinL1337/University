@@ -1,0 +1,35 @@
+LS - list directory contents
+	options:
+		-a -A: list all with/without entries starting with .
+		-l: long listing format
+		-o: like l but no group info
+		-R: list subdirectories recursively
+		-s: print allocated file size in blocks
+		-S sort by file size
+		
+
+STAT - display file or file system status
+	options:
+		-L: follow links
+		-f: display file system status instead of file status
+		--format: format display (np. stat --format='%F %i' file)
+		-t: different format
+		
+		
+REALPATH - print absolute path of a file
+
+
+READLINK - print symlink path
+
+
+DIRNAME - Output  each NAME with its last non-slash component and trailing slashes removed
+
+
+BASENAME - Print  NAME  with  any leading directory components removed.  If specified, also remove a trailing SUFFIX.
+
+
+for IMG in *.jpg; do
+	convert $IMG $(basename $IMG .jpg).png
+done
+
+konwertuje wszystkie *.jpg na .png

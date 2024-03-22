@@ -1,0 +1,19 @@
+STRACE(1) - trace system calls and signals
+
+In the simplest case strace runs the specified command  until  it  exits. It  intercepts and records the system calls which are called by a process and the signals which are received by a process.  The name of each system call, its arguments and its return value are printed on standard error or to the file specified with the -o option.
+
+strace is a useful diagnostic, instructional, and debugging tool.
+
+basic example: strace ls
+
+	options:
+		-e: trace a specific system call (eg. strace -e trace=open,close ls)
+			displays open/close syscalls made by ls
+			strace -e signal=[sig_name] ls -> trace signals (default signal=all)
+		-o [file]: save output to a file (eg. strace -o file.txt ls)
+		-p: trace running process by passing it's PID
+			(1. ps -C gedit 2. sudo strace -p [pid] -o plik.txt 3. tail plik.txt)
+		-t/-tt/-ttt: timestamps (eg. strace -t -e trace=open,close ls)
+		-r: relative timestamps (eg. strace -r -e trace=open,close ls)
+		-c: Count  time,  calls,  and  errors for each system call and report a summary on program exit, suppressing the regular output.
+			(eg. strace -c -v tail plik.txt)

@@ -1,0 +1,27 @@
+NETSTAT(8) - Print network connections, routing tables, interface statistics, masquerade connections, and multicast memberships
+
+	options:
+		-r: display kernel routing tables
+		-i: display a table of all network interfaces
+		-p: PIDs
+		-a: all (listening and non-listening) sockets
+		
+
+SS(8) - utility to investigate sockets
+
+	options:
+		-a: listening and non-listening sockets
+		-l: listening sockets only
+		-t: TCP sockets
+		-u: UDP sockets
+		-p: PIDs
+		-4/-6: IPv4/IPv6 connections
+		
+		
+lsof -U: selects the listing of UNIX domain socket files.
+
+jak się dowiedzieć który proces utworzył gniazdo????
+
+jak się dowiedzieć które gniazda należą do procesu:
+	netstat -ap | grep [PID] | less
+	

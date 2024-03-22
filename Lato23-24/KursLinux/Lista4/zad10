@@ -1,0 +1,3 @@
+DBus - message bus system that allows different processes to communicate with each other. Enables them to share data and interact with each other. DBus is an inter-process communication system (IPC). At the core of the architecture is the message bus daemon, which is responsible for managing the communication between different processes.
+
+DBUS-MONITOR(1) - The dbus-monitor command is used to monitor messages going through a D-Bus message bus.

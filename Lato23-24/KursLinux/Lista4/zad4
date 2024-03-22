@@ -1,0 +1,26 @@
+LSOF(8) - list open files (regular, dirs, character special files, sockets etc.)
+	options:
+		-u [user]: user specific open files
+		^: exclude eg. lsof -u^root -> doesnt output root owned open files
+		-p: search by PID <- odpowiedź jak znaleźć pliki otwarte przez proces
+		-t: lista pid'ów
+
+Use case: "One of the reasons to use the lsof command is when a disk cannot be unmounted as it says the files are being used. With the help of lsof command, we can easily identify the files which are in use."
+
+examples:
+	0) lsof .
+	1) lsof -u [USER] | less <- wszystkie pliki otwarte przez [USER]
+	2) lsof -p [PID] | less <- wszystkie pliki otwarte przez proces o pid [PID]
+
+
+FUSER(1) - The fuser command is a process management tool that identifies processes using a file, a directory, or a socket. Additionally, fuser provides information about the process owner and access type and terminates processes in question.
+	options:
+		-u: user
+		-v: all info, more readable
+		-k: kill processes
+		
+		
+example: fuser -v . ; fuser -ki . (interactive process killing)
+
+
+Jak sprawdzić, który proces otworzył dany plik????
