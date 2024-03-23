@@ -1,3 +1,5 @@
+// Marcin Linkiewicz, indeks: 323853
+
 #include <arpa/inet.h>
 #include <netinet/ip.h>
 #include <sys/socket.h>
@@ -13,4 +15,4 @@
 
 
 void print_as_bytes(unsigned char* buff, ssize_t length);
-int receive(int id, int ttl, int seq, int sock_fd, char *sender_ip);
+int receive(int id, int seq, int sock_fd, char *sender_ip);

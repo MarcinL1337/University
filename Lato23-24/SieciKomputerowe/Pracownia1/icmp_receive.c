@@ -1,3 +1,5 @@
+// Marcin Linkiewicz, indeks: 323853
+
 #include "icmp_receive.h"
 
 
@@ -8,7 +10,7 @@ void print_as_bytes (unsigned char* buff, ssize_t length)
 }
 
 
-int receive(int id, int ttl, int seq, int sock_fd, char *sender_ip)
+int receive(int id, int seq, int sock_fd, char *sender_ip)
 {
 	struct sockaddr_in sender;
 	socklen_t sender_len = sizeof(sender);
@@ -23,7 +25,6 @@ int receive(int id, int ttl, int seq, int sock_fd, char *sender_ip)
 	
 	char sender_ip_str[20]; 
 	inet_ntop(AF_INET, &(sender.sin_addr), sender_ip_str, sizeof(sender_ip_str));
-	// printf ("IP packet with ICMP content from: %s\n", sender_ip_str);
 
 	struct ip* ip_header = (struct ip*) buffer;
 	u_int8_t* icmp_packet = buffer + 4 * ip_header->ip_hl;
@@ -32,7 +33,6 @@ int receive(int id, int ttl, int seq, int sock_fd, char *sender_ip)
 	if(icmp_header->icmp_type == ICMP_ECHOREPLY && 
 	   seq == icmp_header->icmp_hun.ih_idseq.icd_seq && 
 	   id == icmp_header->icmp_hun.ih_idseq.icd_id){
-		// fprintf(stderr, "ICMP_ECHOREPLY\n");
 		strcpy(sender_ip, sender_ip_str);
 		return 2;
 	}
@@ -41,7 +41,6 @@ int receive(int id, int ttl, int seq, int sock_fd, char *sender_ip)
 		icmp_packet += 8;
 		icmp_packet += 4 * ((struct ip*) icmp_packet)->ip_hl;
 		struct icmp *icmp_header_time_exceeded = (struct icmp*)icmp_packet;
-		// fprintf(stderr, "ICMP_TIME_EXCEEDED\n");
 
 		strcpy(sender_ip, sender_ip_str);
 		if(seq == icmp_header_time_exceeded->icmp_hun.ih_idseq.icd_seq && 
@@ -51,7 +50,6 @@ int receive(int id, int ttl, int seq, int sock_fd, char *sender_ip)
 		return 4;
 	}
 	else{
-		fprintf(stderr, "Receive failure\n");
 		return 4;
 	}
 

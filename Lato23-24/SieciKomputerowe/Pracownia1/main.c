@@ -1,3 +1,5 @@
+// Marcin Linkiewicz, indeks: 323853
+
 #include "icmp_receive.h"
 #include "icmp_send.h"
 
@@ -5,6 +7,9 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdbool.h>
+
+
+static u_int8_t ttl_max = 30;
 
 
 int main(int argc, char **argv){
@@ -28,7 +33,7 @@ int main(int argc, char **argv){
 
     int sock_fd = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
 	if (sock_fd < 0) {
-		fprintf(stderr, "socket error aaa: %s\n", strerror(errno)); 
+		fprintf(stderr, "socket error: %s\n", strerror(errno)); 
 		return EXIT_FAILURE;
 	}
 
@@ -46,18 +51,17 @@ int main(int argc, char **argv){
         int receive_ret;
         double time_elapsed = 0;
         
-        // Zmierz czas
 
         struct timeval tv;
         tv.tv_sec = 1;
         tv.tv_usec = 0;
-        // clock_t t = clock();
         
         fd_set descriptors;
 
         char sender_ip[20];
 
         struct timespec start, end;
+        // Zmierz czas
         clock_gettime(CLOCK_MONOTONIC, &start);
 
         // Odbieranie pakietów
@@ -69,11 +73,10 @@ int main(int argc, char **argv){
             if(ready < 0) return EXIT_FAILURE; // error
             else if(ready == 0) break; // timeout
 
-            receive_ret = receive(id, i, i+count, sock_fd, sender_ip);
-            // Zmierz czas znowu
+            receive_ret = receive(id, i+count, sock_fd, sender_ip);
             
             
-            if(receive_ret <= 1) { // jakiś error
+            if(receive_ret <= 1) { // error
                 fprintf(stderr, "Receive error, receive_ret <= 1\n");
                 return EXIT_FAILURE;
             }
@@ -90,17 +93,28 @@ int main(int argc, char **argv){
                 continue;
             }
         }
+        // Zmierz czas znowu
         clock_gettime(CLOCK_MONOTONIC, &end);
         time_elapsed = (end.tv_nsec - start.tv_nsec) / 1e6;
 
-        // dodać usuwanie powtarzających się adresów IP
         printf("%d. ", i);
         if(count > 0){
-            for(int8_t k = 0; k < count; k++)
-                printf("%s  ", ip_addresses[k]);
+
+            for(int8_t k = 0; k < count; k++){
+                bool flag = false;
+                for(int8_t l = 0; l < k; l++){
+                    if(strcmp(ip_addresses[k], ip_addresses[l]) == 0){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(!flag)
+                    printf("%s  ", ip_addresses[k]);
+            }
+
             if(count == 3){ // 3 odpowiedzi
                 double avg_time = time_elapsed / 3;
-                printf("%lfms\n", avg_time);
+                printf("%.2lfms\n", avg_time);
             }
             else // 1 lub 2 odpowiedzi
                 printf("???\n");

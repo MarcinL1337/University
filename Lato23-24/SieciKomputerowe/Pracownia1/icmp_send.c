@@ -1,3 +1,5 @@
+// Marcin Linkiewicz, indeks: 323853
+
 #include "icmp_send.h"
 
 
@@ -46,5 +48,5 @@ int sendp(int id, int ttl, int seq, int sock_fd, struct sockaddr_in *recipient){
 		return EXIT_FAILURE;
     }
 
-    // return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }

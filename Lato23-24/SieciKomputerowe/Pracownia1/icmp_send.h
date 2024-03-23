@@ -1,3 +1,5 @@
+// Marcin Linkiewicz, indeks: 323853
+
 #include <netinet/ip.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
@@ -9,9 +11,6 @@
 #include <stdio.h>
 #include <assert.h>
 #include <unistd.h>
-
-
-static u_int8_t ttl_max = 30;
 
 
 u_int16_t compute_icmp_checksum(const void *buff, int length);
