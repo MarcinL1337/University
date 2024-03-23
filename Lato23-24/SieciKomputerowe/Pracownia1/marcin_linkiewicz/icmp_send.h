@@ -1,0 +1,18 @@
+// Marcin Linkiewicz, indeks: 323853
+
+#include <netinet/ip.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <netinet/ip_icmp.h>
+#include <errno.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <stdio.h>
+#include <assert.h>
+#include <unistd.h>
+
+
+u_int16_t compute_icmp_checksum(const void *buff, int length);
+struct icmp initHeader(int id, int seq);
+int sendp(int id, int ttl, int seq, int sock_fd, struct sockaddr_in *recipient);
