@@ -13,9 +13,7 @@ int receive(int id, int ttl, int seq, int sock_fd, char *sender_ip)
 	struct sockaddr_in sender;
 	socklen_t sender_len = sizeof(sender);
 	u_int8_t buffer[IP_MAXPACKET];
-	fprintf(stderr, "receive 1\n");
 	ssize_t packet_len = recvfrom(sock_fd, buffer, IP_MAXPACKET, 0, (struct sockaddr*)&sender, &sender_len);
-	fprintf(stderr, "receive 2\n");
 	
 	
 	if (packet_len < 0) {
@@ -25,35 +23,36 @@ int receive(int id, int ttl, int seq, int sock_fd, char *sender_ip)
 	
 	char sender_ip_str[20]; 
 	inet_ntop(AF_INET, &(sender.sin_addr), sender_ip_str, sizeof(sender_ip_str));
-	printf ("IP packet with ICMP content from: %s\n", sender_ip_str);
+	// printf ("IP packet with ICMP content from: %s\n", sender_ip_str);
 
 	struct ip* ip_header = (struct ip*) buffer;
 	u_int8_t* icmp_packet = buffer + 4 * ip_header->ip_hl;
-	// struct icmphdr *icmp_header = (struct icmphdr*)icmp_packet;
 	struct icmp *icmp_header = (struct icmp*)icmp_packet;
 	
 	if(icmp_header->icmp_type == ICMP_ECHOREPLY && 
 	   seq == icmp_header->icmp_hun.ih_idseq.icd_seq && 
 	   id == icmp_header->icmp_hun.ih_idseq.icd_id){
-
+		// fprintf(stderr, "ICMP_ECHOREPLY\n");
 		strcpy(sender_ip, sender_ip_str);
 		return 2;
 	}
 	else if(icmp_header->icmp_type == ICMP_TIME_EXCEEDED){
+
 		icmp_packet += 8;
 		icmp_packet += 4 * ((struct ip*) icmp_packet)->ip_hl;
-		// struct icmphdr *icmp_header_time_exceeded = (struct icmphdr*)icmp_packet;
 		struct icmp *icmp_header_time_exceeded = (struct icmp*)icmp_packet;
-		if(seq == icmp_header->icmp_hun.ih_idseq.icd_seq && 
-		   id == icmp_header->icmp_hun.ih_idseq.icd_id){
-			fprintf(stderr, "guwno\n");
-			strcpy(sender_ip, sender_ip_str);
+		// fprintf(stderr, "ICMP_TIME_EXCEEDED\n");
+
+		strcpy(sender_ip, sender_ip_str);
+		if(seq == icmp_header_time_exceeded->icmp_hun.ih_idseq.icd_seq && 
+		   id == icmp_header_time_exceeded->icmp_hun.ih_idseq.icd_id){
 			return 3;
 		}
+		return 4;
 	}
 	else{
-		fprintf(stderr, "Unexpected error\n");
-		return EXIT_FAILURE;
+		fprintf(stderr, "Receive failure\n");
+		return 4;
 	}
 
 	return EXIT_FAILURE;
