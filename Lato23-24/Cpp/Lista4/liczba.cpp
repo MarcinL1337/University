@@ -13,7 +13,7 @@ liczba::liczba(double val){
 
 
 liczba::liczba(liczba &inna_liczba){                //konstruktor kopiujący
-    this->history - new double[history_length];
+    this->history = new double[history_length];
     history[0] = inna_liczba.get_current();
     this->idx = 0;
     this->no_of_elems = 1;
