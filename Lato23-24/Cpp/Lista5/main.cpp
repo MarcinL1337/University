@@ -66,14 +66,19 @@ int main(int argc, char **argv){
     kolejka kol4 = {"a", "b", "c", "d"};
     std::cout << "initializer_list kol4: ";
     kol4.wypisz();
+    std::cout << "Pierwszy element w kol4: " << kol4.zprzodu() << "\n";
 
 
-    kolejka kol5;
     std::cout << "\nkonstruktor domyślny kol5: ";
+    kolejka kol5;
     kol5.wypisz();
     kol5.wstaw("a");
     kol5.wypisz();
     kol5.wstaw("b");
     kol5.wypisz();
     std::cout << "dlugosc kol5 = " << kol5.dlugosc() << "\n";
+
+
+    // std::cout << "Próba utworzenia kolejki o pojemności < 1: ";
+    // kolejka kol6(-1);
 }
