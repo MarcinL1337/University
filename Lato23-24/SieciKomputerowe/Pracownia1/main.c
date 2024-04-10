@@ -62,7 +62,8 @@ int main(int argc, char **argv){
 
         struct timespec start, end;
         // Zmierz czas
-        clock_gettime(CLOCK_MONOTONIC, &start);
+        start
+        clock_gettime(CLOCK_REALTIME, &start);
 
         // Odbieranie pakietów
         while(count < 3){
@@ -94,8 +95,8 @@ int main(int argc, char **argv){
             }
         }
         // Zmierz czas znowu
-        clock_gettime(CLOCK_MONOTONIC, &end);
-        time_elapsed = (end.tv_nsec - start.tv_nsec) / 1e6;
+        clock_gettime(CLOCK_REALTIME, &end);
+        time_elapsed = (end.tv_sec - end.tv_sec) * 1e3 + (end.tv_nsec - start.tv_nsec) / 1e6;
 
         printf("%d. ", i);
         if(count > 0){
@@ -113,7 +114,7 @@ int main(int argc, char **argv){
             }
 
             if(count == 3){ // 3 odpowiedzi
-                double avg_time = time_elapsed / 3;
+                double avg_time = time_elapsed / 3.0;
                 printf("%.2lfms\n", avg_time);
             }
             else // 1 lub 2 odpowiedzi

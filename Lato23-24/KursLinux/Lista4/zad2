@@ -27,9 +27,3 @@ DIRNAME - Output  each NAME with its last non-slash component and trailing slash
 
 BASENAME - Print  NAME  with  any leading directory components removed.  If specified, also remove a trailing SUFFIX.
 
-
-for IMG in *.jpg; do
-	convert $IMG $(basename $IMG .jpg).png
-done
-
-konwertuje wszystkie *.jpg na .png

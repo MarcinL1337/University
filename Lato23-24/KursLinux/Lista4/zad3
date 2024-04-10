@@ -15,7 +15,6 @@ OS-RELEASE(5) - Operating system identification
 HOSTNAME(1) - output or change current hostname
 	options:
 		-i: Display  the  network  address(es) of the host name.
-		q
 
 HOSTNAMECTL(1) - hostnamectl may be used to query and change the system hostname and related settings.
 
@@ -34,5 +33,6 @@ LSB_RELEASE(1) - The lsb_release command provides certain LSB (Linux Standard Ba
 
 Niektóre sposoby identyfikacji Linuksa:
 * uname -a
+* cat /etc/os-release
 * hostnamectl
 * lsb_release -a

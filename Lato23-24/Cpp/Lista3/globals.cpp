@@ -46,31 +46,28 @@ int orientation(punkt a, punkt b, punkt c)
     int value = (b.getY() - a.getY()) * (c.getX() - b.getX()) - (b.getX() - a.getX()) * (c.getY() - b.getY());
 
     if (value == 0)
-        return 0; // so it is colinear
+        return 0; // colinear
     else if (value > 0)
         return 1; // clockwise
     else
         return 2; // counter-clockwise
 }
 
-bool czyPrzecinaja(odcinek c, odcinek d) // c (p1,q1), d (p2,q2)
+bool czyPrzecinaja(odcinek c, odcinek d)
 {
-    // All punkts needed:
     punkt p1 = c.getP1();
     punkt q1 = c.getP2();
     punkt p2 = d.getP1();
     punkt q2 = d.getP2();
-    // Four orientations needed for general and special cases:
+    
     int o1 = orientation(p1, q1, p2);
     int o2 = orientation(p1, q1, q2);
     int o3 = orientation(p2, q2, p1);
     int o4 = orientation(p2, q2, q1);
 
-    // General case
+    
     if (o1 != o2 && o3 != o4)
         return true;
-
-
     
     if (o1 == 0 && c.czyNalezy(p2))
         return true;

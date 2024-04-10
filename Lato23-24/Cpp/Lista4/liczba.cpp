@@ -1,6 +1,9 @@
 #include "liczba.hpp"
 
 
+uint32_t liczba::history_length = 3;
+
+
 liczba::liczba(): liczba(0.0) {} 
 
 
@@ -13,7 +16,7 @@ liczba::liczba(double val){
 
 
 liczba::liczba(liczba &inna_liczba){                //konstruktor kopiujący
-    this->history - new double[history_length];
+    this->history = new double[history_length];
     history[0] = inna_liczba.get_current();
     this->idx = 0;
     this->no_of_elems = 1;
@@ -77,3 +80,21 @@ void liczba::print_history(){
         }
     }
 }
+
+
+// void liczba::revert(uint32_t ile){
+//     if(ile >= this->no_of_elems){
+//         throw std::invalid_argument("Argument jest większy niż liczba elementów w historii");
+//     }
+//     else if(ile == 0){
+//         return;
+//     }
+//     else{
+//         if(this->idx - ile < 0){
+
+//         }
+//         else{
+//             this->insert(this->history[this->idx - ile]);
+//         }
+//     }
+// }

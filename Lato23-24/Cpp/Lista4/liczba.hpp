@@ -1,10 +1,10 @@
 #include <iostream>
 #include <math.h>
 
-static uint32_t history_length = 3;
 
 class liczba{
     private:
+        static uint32_t history_length;
         double *history;
         uint32_t idx, no_of_elems;
 
@@ -21,4 +21,5 @@ class liczba{
         void insert(double n);
         void print_history();
         double get_current();
+        void revert(uint32_t ile);
 };

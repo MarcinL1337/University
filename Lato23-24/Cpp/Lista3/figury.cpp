@@ -55,6 +55,13 @@ odcinek::odcinek(){
 
 // odcinek::odcinek(punkt p1, punkt p2): p1(p1), p2(p2){}
 odcinek::odcinek(punkt p1, punkt p2){
+    // double p1x = p1.getX();
+    // double p2x = p2.getX();
+    // double p1y = p1.getY();
+    // double p2y = p2.getY():
+
+    // if()
+
     this->p1 = p1;
     this->p2 = p2;
 }
@@ -299,7 +306,7 @@ int main(int argc, char **argv){
     std::cout << std::endl << "odcinek.print() obrot" << std::endl << std::endl;
     o1.print();
 
-    if(czyProstopoadle(odcinek(punkt(0, 0), punkt(2, 2)),
+    if(czyRownolegle(odcinek(punkt(0, 0), punkt(2, 2)),
                        odcinek(punkt(-1, -1),  punkt(1, 1))));
         std::cout << std::endl << "Te dwa odcinki są równoległe!" << std::endl << std::endl;
 

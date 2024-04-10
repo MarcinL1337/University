@@ -26,6 +26,8 @@ int main(){
     liczba liczba3;
     liczba3 = liczba2;
 
+    liczba3.insert(3);
+
     std::cout << std::endl << "Aktualna liczba w liczba3 po użyciu konstruktora kopiującego: " << liczba3.get_current() << std::endl;
     std::cout << std::endl << "Historia w liczba3 po użyciu konstruktora kopiującego: " << std::endl;
     liczba3.print_history();
