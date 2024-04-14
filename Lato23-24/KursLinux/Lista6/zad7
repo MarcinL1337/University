@@ -1,0 +1,12 @@
+Obie maszyny mają ten sam interfejs sieci (local0)
+
+V1# ip addr add 10.0.1.1/16 dev enp0s3
+V1# ip link set enp0s3 up
+
+V2# ip addr add 10.0.1.2/16 dev enp0s3
+V2# ip link set enp0s3 up
+
+- ip addr add [address] dev [device] -> przypisuje adres to karty sieciowej 
+- ip link set [device] -> włącza interfejs
+- ip addr flush dev [device] -> usuwa konfigurację interfejsu
+- ip addr show dev [device] -> pokazuje właściwości wybranego interfejsu
