@@ -1,0 +1,24 @@
+- sudo adduser jantest
+
+- sudo usermod -aG cdrom,audio,video,bluetooth jantest
+	-a: append
+	-G: group list
+
+- visudo -> add line jantest ALL = (root) NOPASSWD: /bin/ip
+
+- sudo addgroup projekt
+- sudo adduser marcin projekt
+- sudo adduser jantest projekt
+
+- touch opis.txt (w /tmp)
+- sudo chgrp projekt opis.txt
+- chmod 770 opis.txt
+
+- groups marcin jantest
+
+- sudo visudo -> add line jantest ALL=(marcin) /usr/bin/whoami
+
+- nano /etc/login.defs -> CHFN_RESTRICT frwh
+- su - jantest
+- chfn -f "Jan Testowyyyyy" jantest
+- cat /etc/passwd | grep jantest

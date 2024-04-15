@@ -1,0 +1,15 @@
+na V1:
+
+sudo nano /etc/network/interfaces ->
+iface enp0s3 inet static
+    address 10.0.1.1/16
+
+
+na V2:
+
+sudo nano /etc/network/interfaces ->
+iface enp0s3 inet static
+    address 10.0.1.2/16
+    
+    
+Następnie na obu maszynach polecenia ifup enp0s3 / ifdown enp0s3 włączają / wyłączają interfejsy sieciowe

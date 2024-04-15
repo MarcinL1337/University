@@ -1,0 +1,46 @@
+getty(8) - The  getty  utility is called by	init(8)	to open	and initialize the tty line, read a login name, and invoke login(1).
+The argument tty is the special device file in /dev to open for theterminal (for example, ``ttyh0''). If there is no argument or the argument is `-', the tty line is assumed to be open as file descriptor 0.
+
+
+ctrl + alt + f3-6: przełączanie między vtty
+alt + left-arrow/right-arrow: przechodzenie w lewo/prawo po wirtualnych terminalach
+
+Virtual terminal application: — An application that provides a text-based environment to access the shell.
+
+What Are Linux Virtual Consoles?
+
+On a Linux system, the console is the keyboard and monitor attached directly to the system. This would take the place of a serial terminal on minicomputer and mainframe Unix systems. This would let the system administrator log in as root where this could be restricted on terminals connected to the system remotely. Instead, Linux uses something called a framebuffer to display text on the screen.
+
+A virtual console is like having a full-screen Linux terminal emulator. On desktop systems, you'll frequently see boot messages before the display manager starts. 
+
+
+- A Virtual Terminal is a full-screen terminal which doesn't run inside an X window.
+
+- Many (most) servers do not have a graphical environment as users are rarely logged in to the console. Servers most often require a command line from which the administrator can access the system to monitor or configure it. The virtual terminal provides this environment. Having more than one virtual terminal allows the administrator to switch to another terminal if necessary. 
+
+- On a desktop with a broken Xserver (graphical environment) the virtual console provides a terminal session from which the Xserver can be reconfigured.
+
+
+/dev/ttyx x in [0, 63] -> plikowa reprezentacja vtty.
+
+
+- Dodanie nowych tty:
+	- sudo nano /etc/systemd/logind.conf -> zmiana #NAutoVTs=6
+	- systemctl restart systemd-logind
+	
+	
+- Autologin na tty8,9:
+	- sudo mkdir /etc/systemd/system/getty@tty8.service.d/	(tty9)
+	- sudo nano /etc/systemd/system/getty@tty8.service.d/override.conf (tty9)
+	[Service]
+	ExecStart=
+	ExecStart=-/sbin/agetty --noissue --autologin ostechnix %I $TERM
+	Type=idle
+
+- [Service]: This is a section that specifies the behavior of the service itself. The directives inside this section will control how the service starts and stops, its timeout values, and more.
+    
+- ExecStart=: This directive specifies the command to run when the service starts. The equal sign followed immediately by nothing is a way to reset the list of commands to run, in case it was set in another file that this service file is overriding.
+    
+- ExecStart=-/sbin/agetty --noissue --autologin ostechnix %I $TERM: The new command to run when the service starts. Here, /sbin/agetty is being called with several parameters. agetty opens a tty port, prompts for a login name, and invokes the /bin/login program. The --noissue parameter prevents display of the /etc/issue file before the login prompt. --autologin ostechnix logs in the user ostechnix automatically. %I is a specifier that systemd replaces with the instance name (the tty in this case). $TERM is an environment variable defining the type of the terminal.
+    
+- Type=idle: This directive tells systemd to wait until all jobs are dispatched before it starts the service. This ensures that the service won't start until the system is idle, freeing up resources.
