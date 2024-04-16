@@ -1,5 +1,5 @@
 getty(8) - The  getty  utility is called by	init(8)	to open	and initialize the tty line, read a login name, and invoke login(1).
-The argument tty is the special device file in /dev to open for theterminal (for example, ``ttyh0''). If there is no argument or the argument is `-', the tty line is assumed to be open as file descriptor 0.
+The argument tty is the special device file in /dev to open for the terminal (for example, ``ttyh0''). If there is no argument or the argument is `-', the tty line is assumed to be open as file descriptor 0.
 
 
 ctrl + alt + f3-6: przełączanie między vtty
@@ -34,7 +34,7 @@ A virtual console is like having a full-screen Linux terminal emulator. On deskt
 	- sudo nano /etc/systemd/system/getty@tty8.service.d/override.conf (tty9)
 	[Service]
 	ExecStart=
-	ExecStart=-/sbin/agetty --noissue --autologin ostechnix %I $TERM
+	ExecStart=-/sbin/agetty --noissue --autologin [user] %I $TERM
 	Type=idle
 
 - [Service]: This is a section that specifies the behavior of the service itself. The directives inside this section will control how the service starts and stops, its timeout values, and more.

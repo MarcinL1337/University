@@ -4,7 +4,7 @@
 	-a: append
 	-G: group list
 
-- visudo -> add line jantest ALL = (root) NOPASSWD: /bin/ip
+- sudo visudo -> add line jantest ALL = (root) NOPASSWD: /bin/ip
 
 - sudo addgroup projekt
 - sudo adduser marcin projekt
