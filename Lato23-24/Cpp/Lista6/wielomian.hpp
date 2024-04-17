@@ -22,7 +22,7 @@ class wielomian{
         int getStopien();
 
 
-        friend std::istream& operator>>(std::istream& input, wielomian& wielomian);       // input stream overload
+        friend std::istream& operator>>(std::istream& input, wielomian& wielomian);             // input stream overload
         friend std::ostream& operator<<(std::ostream& output, const wielomian& wielomian);      // output stream overload
 
         friend wielomian operator+(const wielomian& p1, const wielomian& p2);

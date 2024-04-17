@@ -45,4 +45,8 @@ int main(){
     std::cout << "Przeniesienie f(x) do g(x): ";
     g = std::move(f);
     std::cout << g << "\n" << "\n";
+
+
+    double zla_lista_wsp[3] = {10, 9, 0};
+    wielomian zly_wielomian(2, zla_lista_wsp);
 }
