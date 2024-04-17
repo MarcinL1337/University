@@ -12,6 +12,9 @@ wielomian::wielomian(int degree, const double coefficient[]){
     n = degree;
     a = new double[n + 1];
 
+    if(coefficient[n] == 0)
+        throw std::invalid_argument("Współczynnik przy najwyższej potędze nie może być 0!");
+
     for (int i = degree; i >= 0; i--)
         a[i] = coefficient[i];
 }
@@ -28,6 +31,8 @@ wielomian::wielomian(std::initializer_list<double> coefficient){
         i++;
     }
 
+    if(a[n] == 0)
+        throw std::invalid_argument("Współczynnik przy najwyższej potędze nie może być 0!");
 }
 
 
@@ -76,8 +81,7 @@ wielomian::~wielomian(){
 
 
 std::ostream& operator<<(std::ostream& output, const wielomian& wielomian){
-    for (int i = wielomian.n; i >= 0; i--)
-    {
+    for (int i = wielomian.n; i >= 0; i--){
         output << wielomian.a[i] << "x^" << i << " "; 
     }
 
