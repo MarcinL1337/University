@@ -1,0 +1,45 @@
+--- Zadanie 1 ---
+begin;
+INSERT INTO company_branch(company_id,street,city,country_code,longitude,latitude)
+VALUES(1, 'ulica', 'miasto', 'kod kraju xd', '420', '69');
+rollback;
+
+
+--- Zadanie 2 ---
+select distinct company.name from
+company join company_branch on company.id = company_branch.company_id
+join offer on company_branch.company_id = offer.company_id
+join skill on skill.offer_id = offer.id
+where skill.name ilike '%postgresql%';
+
+--- Zadanie 3 ---
+select distinct company.name from
+company join company_branch on company.id = company_branch.company_id
+join offer on company_branch.company_id = offer.company_id
+join skill on skill.offer_id = offer.id
+where skill.name ilike '%postgresql%' or skill.name ilike '%postres%'
+order by company.name asc;
+
+
+--- Zadanie 4 ---
+
+
+--- Zadanie 5 ---
+create table salary(
+	salary_from decimal not null,
+	salary_to decimal not null,
+	offer_id integer references offer(id) not null,
+	type text not null,
+	currency text not null
+);
+
+
+--- Zadanie 6 ---
+insert into salary
+select salary_from_b2b, salary_to_b2b, id, 'b2b', salary_currency_b2b
+from offer                                                           
+where if_b2b and salary_from_b2b::float8 > 0 and salary_currency_b2b not like 'unknown';
+
+
+--- Zadanie 7 ---
+
