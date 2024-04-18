@@ -42,4 +42,13 @@ where if_b2b and salary_from_b2b::float8 > 0 and salary_currency_b2b not like 'u
 
 
 --- Zadanie 7 ---
+alter table salary
+alter column salary_from type decimal;
 
+
+--- Zadanie 8 ---
+select company.name, offer.title, offer.experience_level, offer.salary_from_b2b, offer.salary_to_b2b, (offer.salary_to_b2b::float8 - offer.salary_from_b2b::float8) as difference, round((offer.salary_to_b2b::float8 - offer.salary_from_b2b::float8) / offer.salary_from_b2b::float8 * 100) as percentage from
+company join company_branch on company.id = company_branch.company_id
+join offer on company_branch.company_id = offer.company_id
+where offer.salary_from_b2b::float8 > 0
+order by percentage asc, company.name asc;
