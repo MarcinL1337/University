@@ -1,0 +1,10 @@
+run-parts - run scripts or programs in a directory
+
+	--test [directory]: wypisz pliki, które by się wykonały, ale ich nie wykonuj
+	--regex=[regex]
+	--reverse: odpal skrypty w odwrotnej kolejności
+	
+run-parts --regex="script*" .w
+
+
+run-parts --test /etc/cron.daily/

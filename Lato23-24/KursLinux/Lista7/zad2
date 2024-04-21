@@ -1,0 +1,24 @@
+ctrl+a -> ?: lista komend
+
+screen -S nazwa_sesji: zaczynanie nazwanej sesji
+
+ctrl+a -> shift+': wybór screenów
+
+ctrl+a+[digit]: przełączanie między oknami
+
+ctrl+a -> shift+a: zmiana nazwy okna
+
+ctrl+a -> d: detach screen
+
+screen -R -> powrót do poprzedniej sesji screen'a
+
+screen -r [pid.]... -> powrót do konkretnej sesji
+
+screen -ls: lista aktywnych screen'ów
+
+ctrl+a -> [: copy mode. spacja pierwszy marker, druga spacja drugi marker, kopiuje tekst pomiędzy markerami.
+W tym trybie:
+	- ctrl-b: scroll back
+	- ctrl-f: scroll forward
+	
+ctrl+a -> ]: wklej skopiowany tekst

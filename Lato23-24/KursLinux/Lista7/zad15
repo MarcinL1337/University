@@ -1,0 +1,13 @@
+PS: (info about active processes)
+	-e: list all processes
+	-f: more detailed output
+	-C [command]: select by command name
+	-p [PIDs]: select by pids
+	-u [user]: select by user
+	-o [format]: formatowanie outputu
+	
+PSTREE: (tree of processes)
+	-A: ascii style tree
+	[pid]: examine a specific process
+	-p/-g: show PIDs/PGIDs
+	-T: hide threads

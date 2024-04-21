@@ -1,0 +1,20 @@
+sudo nano ~/.tmux.conf -> 
+setw -g mode-keys vi
+bind-key -T copy-mode-vi y send-keys -X copy-selection
+
+ctrl+b -> d: detach
+
+tmux ls: list active tmux sessions
+
+tmux attach -t [num]: powrót do sesji [num]
+
+tmux new -s [nazwa_sesji]
+
+ctrl+b -> c: stwórz nowe okno
+
+ctrl+b -> [num]: przełącz na okno [num]
+
+ctrl+b -> x: zamknij okno
+
+ctrl+b -> [: copy mode, potem spacja marker -> zaznacz tekst, enter żeby skopiować
+ctrl+b -> ]: wklej

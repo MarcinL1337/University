@@ -1,0 +1,32 @@
+top -u [user]: procesy użytkownika
+
+- nazwy kolumn przy procesach:
+
+proces ID
+user
+priority
+nice user
+virtual memory
+resident memory
+shareable memory
+CPU used percentage
+memory used percentage
+time a process has run
+command
+
+
+klawisze l/t/m -> manipulacja informacjami nad procesami
+
+M -> sortuj po zużyciu pamięci
+N -> sortuj po PID
+P -> sortuj po %CPU
+T -> sortuj po TIME+
+R -> pokaż w odwrotnej kolejności
+k -> kill a process by PID
+u -> procesy użytkownika
+d -> change delay
+c -> command
+z -> change colors
+Z -> colors menu
+b -> bold active processes
+W -> zapisz zmiany do pliku toprc
