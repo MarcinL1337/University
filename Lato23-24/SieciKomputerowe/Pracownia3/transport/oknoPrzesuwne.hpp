@@ -1,6 +1,6 @@
 #include "datagram.hpp"
 
-static const int window_capacity = 500;
+static const int window_capacity = 600;
 
 class Okno{
     private:

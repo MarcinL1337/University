@@ -1,7 +1,7 @@
 #include "datagram.hpp"
 
 
-Datagram::Datagram(int start, int size){
+Datagram::Datagram(long long start, long long size){
     this->start = start;
     this->size = size;
     this->ack = false;
@@ -9,16 +9,14 @@ Datagram::Datagram(int start, int size){
 
 
 int Datagram::send_segment(int sock_fd, struct sockaddr_in *recipient){
+    std::string msg = "GET " + std::to_string(this->start) + " " + std::to_string(this->size) + "\n";
     
-    const char *message = ("GET " + std::to_string(this->start) + " " + std::to_string(this->size) + "\n").c_str();
-
     ssize_t bytes_sent = sendto(sock_fd, 
-                                message, 
-                                strlen(message),
+                                msg.c_str(), 
+                                msg.length(),
                                 0, 
                                 (struct sockaddr*) recipient,
                                 sizeof(*recipient));
-
 
     if(bytes_sent == -1){
         fprintf(stderr, "send_segment error: %s\n", strerror(errno)); 
@@ -52,6 +50,7 @@ int Datagram::get_size(){
 bool Datagram::get_ack(){
     return this->ack;
 }
+
 
 char* Datagram::get_received_message(){
     return this->received_message;

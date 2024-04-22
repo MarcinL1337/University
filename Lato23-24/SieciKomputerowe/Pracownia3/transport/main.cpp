@@ -32,7 +32,11 @@ int main(int argc, char **argv){
     }
 
     char *ip_addr = argv[1];
+
+    try{
     int port = std::stoi(argv[2]);
+    }
+    
     char *nazwa_pliku = argv[3];
     long long rozmiar = std::stoll(argv[4]);
 
@@ -75,7 +79,7 @@ int main(int argc, char **argv){
 
     struct timeval tv;
     tv.tv_sec = 0;
-    tv.tv_usec = 200000;
+    tv.tv_usec = 100000;
     
     fd_set descriptors;
 
@@ -86,22 +90,20 @@ int main(int argc, char **argv){
     bool end = false;   
     int save_count = 0;
 
-    while(!end){
+    while(save_count != (int)ceil((double)rozmiar / segment_size)){
+        std::fflush(stdout);
         FD_ZERO(&descriptors);
         FD_SET(sock_fd, &descriptors);
         int ready = select(sock_fd+1, &descriptors, NULL, NULL, &tv);
         if(ready < 0) return EXIT_FAILURE; // error
         else if(ready == 0){ // timeout
-            // okno.sendd(sock_fd, &server_address);
             okno.sendd(sock_fd, &server_address);
-            tv.tv_sec = 0; tv.tv_usec = 200000;
-            // continue;
         } 
         else{ // git
             struct sockaddr_in sender;
             socklen_t sender_len = sizeof(sender);
             char buffer[IP_MAXPACKET];
-            ssize_t packet_len = recvfrom(sock_fd, buffer, IP_MAXPACKET, MSG_DONTWAIT/*0*/, (struct sockaddr*)&sender, &sender_len);
+            ssize_t packet_len = recvfrom(sock_fd, buffer, IP_MAXPACKET, 0, (struct sockaddr*)&sender, &sender_len);
             
             if (packet_len < 0) {
                 fprintf(stderr, "recvfrom error: %s\n", strerror(errno));
@@ -114,7 +116,7 @@ int main(int argc, char **argv){
                 std::string data(buffer, packet_len);
                 int offset = data.find('\n') + 1;
                 int i = 5;
-                int start, size;
+                long long start, size;
                 std::string temp = "";
                 while(i < offset-1){
                     if(buffer[i] == ' '){
@@ -136,11 +138,7 @@ int main(int argc, char **argv){
                 save_count++;
                 okno.shift_window();
             }
-
-            if(save_count == (int)ceil((double) rozmiar / segment_size)){
-                fclose(file);
-                end = true;
-            }
         }
     }
+    fclose(file);
 }

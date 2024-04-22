@@ -12,7 +12,7 @@ class Datagram {
         char received_message[segment_size];
     
     public:
-        Datagram(int start, int size);
+        Datagram(long long start, long long size);
 
         int send_segment(int sock_fd, struct sockaddr_in *recipient);
         void receive_segment(char *message);

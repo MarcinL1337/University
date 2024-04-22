@@ -2,8 +2,6 @@
 
 Okno::Okno(int size){
     this->size = size;
-    // printf("Size = %d\n", this->size);
-    // first item
     Datagram datagram(0, segment_size);
     this->datagrams.push_back(datagram);
 
@@ -11,11 +9,10 @@ Okno::Okno(int size){
 
     for(; count < window_capacity && this->datagrams.back().get_start() + segment_size < this->size; count++){
         int aux = this->size - (this->datagrams.back().get_start() + segment_size);
-        // printf("Count = %d, aux = %d\n", count, aux);
         if(aux <= segment_size){
-            // printf("dupa\n");
             Datagram datagram2(this->datagrams.back().get_start() + segment_size, aux);
             this->datagrams.push_back(datagram2);
+            
         } 
         else{
             Datagram datagram2(this->datagrams.back().get_start() + segment_size, segment_size);
@@ -23,19 +20,12 @@ Okno::Okno(int size){
 
         }
     }
-
-    // int i = 0;
-    // for(auto datagram : this->datagrams){
-    //     i++;
-    //     printf("Datagram %d: start = %d, size = %d\n", i, datagram.get_start(), datagram.get_start());
-    // }
 }
 
 
 void Okno::sendd(int sockfd, struct sockaddr_in *address){
     for(auto d : this->datagrams){
         if(!d.get_ack())
-            // printf("Dupa\n");
             d.send_segment(sockfd, address);
     }
 }
@@ -54,8 +44,8 @@ void Okno::received(int start, int size, char *buffer){
 
 void Okno::shift_window(){
     this->datagrams.pop_front();
-    if(this->datagrams.back().get_start() + segment_size < this->size && this->datagrams.size() > 0){
-        int aux = this->size - this->datagrams.back().get_start() + segment_size;
+    if(!this->datagrams.empty() && this->datagrams.back().get_start() + segment_size < this->size){
+        int aux = this->size - (this->datagrams.back().get_start() + segment_size);
         if(aux <= segment_size){
             Datagram datagram(this->datagrams.back().get_start() + segment_size, aux);
             this->datagrams.push_back(datagram);
@@ -65,4 +55,5 @@ void Okno::shift_window(){
             this->datagrams.push_back(datagram);
         }
     }
+    
 }
