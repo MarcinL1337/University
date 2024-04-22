@@ -1,3 +1,5 @@
+// Marcin Linkiewicz, 323853
+
 #include "oknoPrzesuwne.hpp"
 
 
@@ -32,11 +34,7 @@ int main(int argc, char **argv){
     }
 
     char *ip_addr = argv[1];
-
-    try{
     int port = std::stoi(argv[2]);
-    }
-    
     char *nazwa_pliku = argv[3];
     long long rozmiar = std::stoll(argv[4]);
 
@@ -49,18 +47,6 @@ int main(int argc, char **argv){
         fprintf(stderr, "Port has to be an integer between than 1 and 65536!");
         return EXIT_FAILURE;
     }
-
-
-    struct sockaddr_in recipient;
-    bzero(&recipient, sizeof(recipient));
-    recipient.sin_family = AF_INET;
-    int8_t check = inet_pton(AF_INET, ip_addr, &recipient.sin_addr);
-
-    if(!check){
-        fprintf(stderr, "Invalid destination IP address\n");
-        return EXIT_FAILURE;
-    }
-
 
     FILE *file = std::fopen(nazwa_pliku, "w");
     
@@ -87,7 +73,6 @@ int main(int argc, char **argv){
     Okno okno(rozmiar);
     okno.sendd(sock_fd, &server_address);
 
-    bool end = false;   
     int save_count = 0;
 
     while(save_count != (int)ceil((double)rozmiar / segment_size)){

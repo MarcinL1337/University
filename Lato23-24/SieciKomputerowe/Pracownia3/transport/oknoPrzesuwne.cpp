@@ -1,3 +1,5 @@
+// Marcin Linkiewicz, 323853
+
 #include "oknoPrzesuwne.hpp"
 
 Okno::Okno(int size){
@@ -12,19 +14,17 @@ Okno::Okno(int size){
         if(aux <= segment_size){
             Datagram datagram2(this->datagrams.back().get_start() + segment_size, aux);
             this->datagrams.push_back(datagram2);
-            
         } 
         else{
             Datagram datagram2(this->datagrams.back().get_start() + segment_size, segment_size);
             this->datagrams.push_back(datagram2);
-
         }
     }
 }
 
 
 void Okno::sendd(int sockfd, struct sockaddr_in *address){
-    for(auto d : this->datagrams){
+    for(Datagram d : this->datagrams){
         if(!d.get_ack())
             d.send_segment(sockfd, address);
     }
