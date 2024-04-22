@@ -12,5 +12,6 @@ class Okno{
         Okno(int size);
         void sendd(int sockfd, struct sockaddr_in *address);
         void received(int start, int size, char *buffer);
+        void shift_window();
 
 };

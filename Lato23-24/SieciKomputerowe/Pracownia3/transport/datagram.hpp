@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <bits/stdc++.h>
 
-static const int segment_size = 700;
+static const int segment_size = 1000;
 
 class Datagram {
     private:
@@ -16,6 +16,8 @@ class Datagram {
 
         int send_segment(int sock_fd, struct sockaddr_in *recipient);
         void receive_segment(char *message);
+
+        bool is_equal_to(Datagram datagram);
 
         int get_start();
         int get_size();

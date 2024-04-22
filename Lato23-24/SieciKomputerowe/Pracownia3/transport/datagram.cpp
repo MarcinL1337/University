@@ -10,7 +10,7 @@ Datagram::Datagram(int start, int size){
 
 int Datagram::send_segment(int sock_fd, struct sockaddr_in *recipient){
     
-    char *message = ("GET " + std::to_string(this->start) + " " + std::to_string(this->size) + "\n").c_str();
+    const char *message = ("GET " + std::to_string(this->start) + " " + std::to_string(this->size) + "\n").c_str();
 
     ssize_t bytes_sent = sendto(sock_fd, 
                                 message, 
@@ -18,7 +18,8 @@ int Datagram::send_segment(int sock_fd, struct sockaddr_in *recipient){
                                 0, 
                                 (struct sockaddr*) recipient,
                                 sizeof(*recipient));
-    
+
+
     if(bytes_sent == -1){
         fprintf(stderr, "send_segment error: %s\n", strerror(errno)); 
 		return EXIT_FAILURE;
@@ -29,7 +30,12 @@ int Datagram::send_segment(int sock_fd, struct sockaddr_in *recipient){
 
 void Datagram::receive_segment(char *message){
     this->ack = true;
-    std::memcpy(this->received_message, message, strlen(message));
+    std::memcpy(this->received_message, message, this->size);
+}
+
+
+bool Datagram::is_equal_to(Datagram datagram){
+    return this->size == datagram.get_size() && this->start == datagram.get_start();
 }
 
 

@@ -46,6 +46,18 @@ int main(int argc, char **argv){
         return EXIT_FAILURE;
     }
 
+
+    struct sockaddr_in recipient;
+    bzero(&recipient, sizeof(recipient));
+    recipient.sin_family = AF_INET;
+    int8_t check = inet_pton(AF_INET, ip_addr, &recipient.sin_addr);
+
+    if(!check){
+        fprintf(stderr, "Invalid destination IP address\n");
+        return EXIT_FAILURE;
+    }
+
+
     FILE *file = std::fopen(nazwa_pliku, "w");
     
     int sock_fd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -63,7 +75,7 @@ int main(int argc, char **argv){
 
     struct timeval tv;
     tv.tv_sec = 0;
-    tv.tv_usec = 100000;
+    tv.tv_usec = 200000;
     
     fd_set descriptors;
 
@@ -80,15 +92,16 @@ int main(int argc, char **argv){
         int ready = select(sock_fd+1, &descriptors, NULL, NULL, &tv);
         if(ready < 0) return EXIT_FAILURE; // error
         else if(ready == 0){ // timeout
-            
-            //zrób coś
-        
+            // okno.sendd(sock_fd, &server_address);
+            okno.sendd(sock_fd, &server_address);
+            tv.tv_sec = 0; tv.tv_usec = 200000;
+            // continue;
         } 
         else{ // git
             struct sockaddr_in sender;
             socklen_t sender_len = sizeof(sender);
-            u_int8_t buffer[IP_MAXPACKET];
-            ssize_t packet_len = recvfrom(sock_fd, buffer, IP_MAXPACKET, /*MSG_DONTWAIT*/0, (struct sockaddr*)&sender, &sender_len);
+            char buffer[IP_MAXPACKET];
+            ssize_t packet_len = recvfrom(sock_fd, buffer, IP_MAXPACKET, MSG_DONTWAIT/*0*/, (struct sockaddr*)&sender, &sender_len);
             
             if (packet_len < 0) {
                 fprintf(stderr, "recvfrom error: %s\n", strerror(errno));
@@ -96,21 +109,35 @@ int main(int argc, char **argv){
             }
 
             if (server_address.sin_addr.s_addr == sender.sin_addr.s_addr &&
-                server_address.sin_port == sender.sin_port){
-                    int start, size;
-                    if(sscanf((char *)buffer, "DATA %d %d\n", &start, &size) == 2){
-                        int offset = std::to_string(start).length() + std::to_string(size).length() + 7;
-                        okno.received(start, size, (char *)buffer + offset);
+                server_address.sin_port == sender.sin_port && packet_len > 8){
+
+                std::string data(buffer, packet_len);
+                int offset = data.find('\n') + 1;
+                int i = 5;
+                int start, size;
+                std::string temp = "";
+                while(i < offset-1){
+                    if(buffer[i] == ' '){
+                        start = stoi(temp);
+                        temp = "";
+                        i++;
+                        continue;
                     }
+                    temp += buffer[i];
+                    i++;
+                } 
+                size = stoi(temp);
+                okno.received(start, size, (char *)buffer + offset);
             }
 
             if(okno.datagrams.front().get_ack()){
                 Datagram datagram = okno.datagrams.front();
                 fwrite(datagram.get_received_message(), sizeof(char), datagram.get_size(), file);
                 save_count++;
+                okno.shift_window();
             }
 
-            if(save_count == ceil((double) rozmiar / segment_size)){
+            if(save_count == (int)ceil((double) rozmiar / segment_size)){
                 fclose(file);
                 end = true;
             }

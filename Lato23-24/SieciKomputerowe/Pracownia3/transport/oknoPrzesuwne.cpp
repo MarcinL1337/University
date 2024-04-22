@@ -9,21 +9,31 @@ Okno::Okno(int size){
 
     int count = 1;
 
-    for(count; count < window_capacity && this->datagrams.back().get_start() + segment_size < this->size; count++){
-        int aux = this->size - (this->datagrams.back().get_start() + segment_size);
-        if(aux <= segment_size)
-            Datagram datagram(this->datagrams.back().get_start() + segment_size, aux);
-        else
-            Datagram datagram(this->datagrams.back().get_start() + segment_size, segment_size);
+    for(; count < window_capacity && this->datagrams.back().get_start() + segment_size < this->size; count++){
+        int aux = this->size - this->datagrams.back().get_start();
+        if(aux <= segment_size){
+            Datagram datagram2(this->datagrams.back().get_start() + segment_size, aux);
+            this->datagrams.push_back(datagram2);
+        } 
+        else{
+            Datagram datagram2(this->datagrams.back().get_start() + segment_size, segment_size);
+            this->datagrams.push_back(datagram2);
 
-        this->datagrams.push_back(datagram);
+        }
     }
+
+    // int i = 0;
+    // for(auto datagram : this->datagrams){
+    //     i++;
+    //     printf("Datagram %d: start = %d, size = %d\n", i, datagram.get_start(), datagram.get_start());
+    // }
 }
 
 
 void Okno::sendd(int sockfd, struct sockaddr_in *address){
     for(auto d : this->datagrams){
         if(!d.get_ack())
+            // printf("Dupa\n");
             d.send_segment(sockfd, address);
     }
 }
@@ -31,10 +41,26 @@ void Okno::sendd(int sockfd, struct sockaddr_in *address){
 
 void Okno::received(int start, int size, char *buffer){
     Datagram d(start, size);
-    for(Datagram /*auto*/ datagram = datagrams.begin(); datagram != datagrams.end(); datagram++){
-        if(d == datagram && !datagram.get_ack()){
-            datagram.receive_segment(buffer);
+    for(auto datagram = datagrams.begin(); datagram != datagrams.end(); datagram++){
+        if(d.is_equal_to(*datagram) && !datagram->get_ack()){
+            datagram->receive_segment(buffer);
             break;
+        }
+    }
+}
+
+
+void Okno::shift_window(){
+    this->datagrams.pop_front();
+    if(this->datagrams.back().get_start() + segment_size < this->size && this->datagrams.size() > 0){
+        int aux = this->size - this->datagrams.back().get_start();
+        if(aux <= segment_size){
+            Datagram datagram(this->datagrams.back().get_start() + segment_size, aux);
+            this->datagrams.push_back(datagram);
+        }
+        else{
+            Datagram datagram(this->datagrams.back().get_start() + segment_size, segment_size);
+            this->datagrams.push_back(datagram);
         }
     }
 }
