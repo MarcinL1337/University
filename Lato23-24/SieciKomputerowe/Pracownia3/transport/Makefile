@@ -1,7 +1,7 @@
 CC= g++
 CFLAGS= -std=gnu++20 -Wall -Wextra
 OBJ= main.o datagram.o oknoPrzesuwne.o
-DEPS= datagram.hpp oknoPrzesuwne.hpp
+DEPS= main.hpp datagram.hpp oknoPrzesuwne.hpp
 
 TARGET=transport
 
