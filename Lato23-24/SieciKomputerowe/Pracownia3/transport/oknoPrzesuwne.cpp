@@ -2,7 +2,7 @@
 
 Okno::Okno(int size){
     this->size = size;
-
+    // printf("Size = %d\n", this->size);
     // first item
     Datagram datagram(0, segment_size);
     this->datagrams.push_back(datagram);
@@ -10,8 +10,10 @@ Okno::Okno(int size){
     int count = 1;
 
     for(; count < window_capacity && this->datagrams.back().get_start() + segment_size < this->size; count++){
-        int aux = this->size - this->datagrams.back().get_start();
+        int aux = this->size - (this->datagrams.back().get_start() + segment_size);
+        // printf("Count = %d, aux = %d\n", count, aux);
         if(aux <= segment_size){
+            // printf("dupa\n");
             Datagram datagram2(this->datagrams.back().get_start() + segment_size, aux);
             this->datagrams.push_back(datagram2);
         } 
@@ -53,7 +55,7 @@ void Okno::received(int start, int size, char *buffer){
 void Okno::shift_window(){
     this->datagrams.pop_front();
     if(this->datagrams.back().get_start() + segment_size < this->size && this->datagrams.size() > 0){
-        int aux = this->size - this->datagrams.back().get_start();
+        int aux = this->size - this->datagrams.back().get_start() + segment_size;
         if(aux <= segment_size){
             Datagram datagram(this->datagrams.back().get_start() + segment_size, aux);
             this->datagrams.push_back(datagram);
