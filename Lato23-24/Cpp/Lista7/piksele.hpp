@@ -9,11 +9,11 @@ class piksel{
     public:
         piksel();
         piksel(int, int);
+        float calc_dist(int, int);
 
         int get_x();
         int get_y();
 
-        float calc_dist(int, int);
         
 
         int calc_dist_left();
